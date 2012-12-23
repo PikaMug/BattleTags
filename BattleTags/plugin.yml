@@ -1,0 +1,9 @@
+name: BattleTags
+version: 1.2
+description: Team-based player tags for Bukkit servers.
+author: HappyPikachu
+website: http://dev.bukkit.org/server-mods/battletags/
+
+main: me.happypikachu.BattleTags.BattleTags
+depend: [TagAPI]
+softdepend: [Factions, SimpleClans, War]
