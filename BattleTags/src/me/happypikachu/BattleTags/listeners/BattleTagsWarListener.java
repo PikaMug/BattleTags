@@ -1,4 +1,6 @@
-package me.happypikachu.BattleTags;
+package me.happypikachu.BattleTags.listeners;
+
+import me.happypikachu.BattleTags.BattleTags;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
