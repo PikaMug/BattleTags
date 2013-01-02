@@ -26,7 +26,7 @@ public class BattleTagsManager implements Listener {
 	@EventHandler(priority=EventPriority.HIGHEST)
 	public void onNameTag(PlayerReceiveNameTagEvent event) {
 		//Factions by Brettflan
-		if (plugin.getServer().getPluginManager().getPlugin("Factions") != null) {
+		if (plugin.getServer().getPluginManager().isPluginEnabled("Factions")) {
 			if (plugin.getConfig().getBoolean("Factions." + event.getNamedPlayer().getWorld().getName())) {
 				Faction pFaction = FPlayers.i.get(event.getPlayer()).getFaction();
 				Faction npFaction = FPlayers.i.get(event.getNamedPlayer()).getFaction();
@@ -56,7 +56,7 @@ public class BattleTagsManager implements Listener {
 		}
 		
 		//SimpleClans by phaed420
-		if (plugin.getServer().getPluginManager().getPlugin("SimpleClans") != null) {
+		if (plugin.getServer().getPluginManager().isPluginEnabled("SimpleClans")) {
 			SimpleClans sc = (SimpleClans) plugin.getServer().getPluginManager().getPlugin("SimpleClans");
 			Clan pClan = sc.getClanManager().getClanByPlayerName(event.getPlayer().getName());
 			Clan npClan = sc.getClanManager().getClanByPlayerName(event.getNamedPlayer().getName());
@@ -72,7 +72,7 @@ public class BattleTagsManager implements Listener {
 		}
 		
 		//SimpleClans2 by p000ison
-		if (plugin.getServer().getPluginManager().getPlugin("SimpleClans2") != null) {
+		if (plugin.getServer().getPluginManager().isPluginEnabled("SimpleClans2")) {
 			SCCore sc= (SCCore) plugin.getServer().getPluginManager().getPlugin("SimpleClans2");
 			if (sc.getClanPlayerManager().getClanPlayer(event.getPlayer().getName()).getClan().isAlly(sc.getClanPlayerManager().getClanPlayer(event.getNamedPlayer().getName()).getClan())) {
 				event.setTag(ChatColor.getByChar(plugin.getConfig().getString("SimpleClans2.ally")) + event.getNamedPlayer().getName());
@@ -86,7 +86,7 @@ public class BattleTagsManager implements Listener {
 		}
 		
 		//Towny by ElgarL
-		if (plugin.getServer().getPluginManager().getPlugin("Towny") != null) {
+		if (plugin.getServer().getPluginManager().isPluginEnabled("Towny")) {
 			if (CombatUtil.isAlly(event.getPlayer().getName(), event.getNamedPlayer().getName())) {
 				event.setTag(ChatColor.getByChar(plugin.getConfig().getString("Towny.ally")) + event.getNamedPlayer().getName());
 			} else if (CombatUtil.isEnemy(event.getPlayer().getName(), event.getNamedPlayer().getName())) {
@@ -95,7 +95,7 @@ public class BattleTagsManager implements Listener {
 		}
 		
 		//War by tommytony
-		if (plugin.getServer().getPluginManager().getPlugin("War") != null) {
+		if (plugin.getServer().getPluginManager().isPluginEnabled("War")) {
 			if (plugin.getConfig().getBoolean("War." + event.getNamedPlayer().getWorld().getName())) {
 				if (Team.getTeamByPlayerName(event.getNamedPlayer().getName()) != null) {
 					event.setTag(Team.getTeamByPlayerName(event.getNamedPlayer().getName()).getKind().getColor() + event.getNamedPlayer().getName());

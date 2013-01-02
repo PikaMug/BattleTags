@@ -34,23 +34,23 @@ public class BattleTags extends JavaPlugin {
         saveConfig();
         
         getCommand("battletags").setExecutor(new BattleTagsCommandExecutor(this));
-        if (getServer().getPluginManager().getPlugin("Factions") != null) {
+        if (getServer().getPluginManager().isPluginEnabled("Factions")) {
         	getServer().getPluginManager().registerEvents(new BattleTagsFactionsListener(this), this);
         	getLogger().info("Hooked into Factions " + getServer().getPluginManager().getPlugin("Factions").getDescription().getVersion());
         }
-        if (getServer().getPluginManager().getPlugin("SimpleClans") != null) {
+        if (getServer().getPluginManager().isPluginEnabled("SimpleClans")) {
         	getServer().getPluginManager().registerEvents(new BattleTagsSimpleClansListener(this), this);
         	getLogger().info("Hooked into SimpleClans " + getServer().getPluginManager().getPlugin("SimpleClans").getDescription().getVersion());
         }
-        if (getServer().getPluginManager().getPlugin("SimpleClans2") != null) {
+        if (getServer().getPluginManager().isPluginEnabled("SimpleClans2")) {
         	getServer().getPluginManager().registerEvents(new BattleTagsSimpleClans2Listener(this), this);
         	getLogger().info("Hooked into SimpleClans2 " + getServer().getPluginManager().getPlugin("SimpleClans2").getDescription().getVersion());
         }
-        if (getServer().getPluginManager().getPlugin("Towny") != null) {
+        if (getServer().getPluginManager().isPluginEnabled("Towny")) {
         	getServer().getPluginManager().registerEvents(new BattleTagsTownyListener(this), this);
         	getLogger().info("Hooked into Towny " + getServer().getPluginManager().getPlugin("Towny").getDescription().getVersion());
         }
-        if (getServer().getPluginManager().getPlugin("War") != null) {
+        if (getServer().getPluginManager().isPluginEnabled("War")) {
         	getServer().getPluginManager().registerEvents(new BattleTagsWarListener(this), this);
         	getLogger().info("Hooked into War " + getServer().getPluginManager().getPlugin("War").getDescription().getVersion());
         }
