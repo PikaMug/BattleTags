@@ -12,7 +12,6 @@ import org.kitteh.tag.PlayerReceiveNameTagEvent;
 import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.FPlayers;
 import com.massivecraft.factions.Faction;
-import com.massivecraft.factions.struct.Rel;
 import com.p000ison.dev.simpleclans2.api.SCCore;
 import com.palmergames.bukkit.towny.utils.CombatUtil;
 import com.tommytony.war.Team;
@@ -30,18 +29,7 @@ public class BattleTagsManager implements Listener {
 			if (plugin.getConfig().getBoolean("Factions." + event.getNamedPlayer().getWorld().getName())) {
 				Faction pFaction = FPlayers.i.get(event.getPlayer()).getFaction();
 				Faction npFaction = FPlayers.i.get(event.getNamedPlayer()).getFaction();
-				if (plugin.getServer().getPluginManager().getPlugin("Factions").getDescription().getVersion().startsWith("1.7")
-						|| plugin.getServer().getPluginManager().getPlugin("Factions").getDescription().getVersion().startsWith("1.8")) {
-					if (pFaction.getRelationTo(npFaction).equals(Rel.ALLY)) {
-						event.setTag(Conf.colorAlly + event.getNamedPlayer().getName());
-					} else if (pFaction.getRelationTo(npFaction).equals(Rel.ENEMY)) {
-						event.setTag(Conf.colorEnemy + event.getNamedPlayer().getName());
-					} else if (pFaction.getRelationTo(npFaction).equals(Rel.MEMBER)) {
-						event.setTag(Conf.colorMember + event.getNamedPlayer().getName());
-					} else if (pFaction.getRelationTo(npFaction).equals(Rel.NEUTRAL)) {
-						event.setTag(Conf.colorNeutral + event.getNamedPlayer().getName());
-					}
-				} else {
+				if (plugin.getServer().getPluginManager().getPlugin("Factions").getDescription().getVersion().startsWith("1.6")) {
 					if (pFaction.getRelationTo(npFaction).isAlly()) {
 						event.setTag(Conf.colorAlly + event.getNamedPlayer().getName());
 					} else if (pFaction.getRelationTo(npFaction).isEnemy()) {
@@ -51,6 +39,9 @@ public class BattleTagsManager implements Listener {
 					} else if (pFaction.getRelationTo(npFaction).isNeutral()) {
 						event.setTag(Conf.colorNeutral + event.getNamedPlayer().getName());
 					}
+				} else {
+					plugin.getLogger().warning("Hooked into unexpected Factions version (" + plugin.getServer().getPluginManager().getPlugin("Factions").getDescription().getVersion() + ")." +
+							" Try a different version of Factions or BattleTags? Disable support in all worlds to remove this message.");
 				}
 			}
 		}
