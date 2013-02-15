@@ -10,6 +10,7 @@ import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class BattleTags extends JavaPlugin {
+
 	@Override
 	public void onEnable() {
 		//Copy config.yml and update header

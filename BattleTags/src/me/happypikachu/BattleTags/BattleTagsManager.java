@@ -42,15 +42,8 @@ public class BattleTagsManager implements Listener {
 						event.setTag(Conf.colorNeutral + event.getNamedPlayer().getName());
 					}
 				} else {
-					if (pFaction.getRelationTo(npFaction).isAlly()) {
-						event.setTag(Conf.colorAlly + event.getNamedPlayer().getName());
-					} else if (pFaction.getRelationTo(npFaction).isEnemy()) {
-						event.setTag(Conf.colorEnemy + event.getNamedPlayer().getName());
-					} else if (pFaction.getRelationTo(npFaction).isMember()) {
-						event.setTag(Conf.colorMember + event.getNamedPlayer().getName());
-					} else if (pFaction.getRelationTo(npFaction).isNeutral()) {
-						event.setTag(Conf.colorNeutral + event.getNamedPlayer().getName());
-					}
+					plugin.getLogger().warning("Hooked into unexpected Factions version (" + plugin.getServer().getPluginManager().getPlugin("Factions").getDescription().getVersion() + ")." +
+							" Try a different version of Factions or BattleTags? Disable support in all worlds to remove this message.");
 				}
 			}
 		}
