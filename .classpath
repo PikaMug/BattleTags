@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/Factions.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/WorldKill/NameTagAPI.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/WorldKill/TagAPI.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/Towny.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/craftbukkit.jar" sourcepath="C:/Users/Brord/Downloads/CraftBukkit-master.zip">
+		<attributes>
+			<attribute name="javadoc_location" value="http://jd.bukkit.org/apidocs/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/00_disabled/SimpleClans (1).jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/00_disabled/SimpleClans-2.4.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/00_disabled/war-1.7.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/00_disabled/Factions.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/mcore.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/ProtocolLib-2.3.1-SNAPSHOT.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://aadnk.github.com/ProtocolLib/Javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/TabAPI.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Users/Brord/Dropbox/plugin/tabAPI/doc.zip!/doc"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
