@@ -11,34 +11,33 @@ import org.bukkit.event.Listener;
 
 public class BattleTagsFactions2Listener implements Listener {
 	private BattleTags plugin;
+	private Runnable updateTask = new Runnable() {
+		@Override
+		public void run() {
+			for (Player p : Bukkit.getOnlinePlayers()) {
+				if (plugin.getConfig().getBoolean("Factions." + p.getWorld().getName())) {
+					plugin.update(p);
+				}
+			}
+		}
+	};
+	
     public BattleTagsFactions2Listener(BattleTags plugin) {
             this.plugin = plugin;
     }
 	
     @EventHandler
 	public void onFPlayerJoin (FactionsEventMembershipChange event) {
-		for (Player p : Bukkit.getOnlinePlayers()) {
-			if (plugin.getConfig().getBoolean("Factions." + p.getWorld().getName())) {
-				plugin.update(p);
-			}
-		}
+		plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, updateTask);
 	}
 	
     @EventHandler
 	public void onFactionDisband (FactionsEventDisband event) {
-		for (Player p : Bukkit.getOnlinePlayers()) {
-			if (plugin.getConfig().getBoolean("Factions." + p.getWorld().getName())) {
-				plugin.update(p);
-			}
-		}
+    	plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, updateTask);
 	}
 	
     @EventHandler
 	public void onFactionRelation (FactionsEventRelationChange event) {
-		for (Player p : Bukkit.getOnlinePlayers()) {
-			if (plugin.getConfig().getBoolean("Factions." + p.getWorld().getName())) {
-				plugin.update(p);
-			}
-		}
+    	plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, updateTask);
 	}
 }
