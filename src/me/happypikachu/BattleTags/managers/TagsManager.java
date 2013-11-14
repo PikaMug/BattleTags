@@ -4,7 +4,6 @@ import com.p000ison.dev.simpleclans2.api.SCCore;
 import com.palmergames.bukkit.towny.utils.CombatUtil;
 import com.tommytony.war.Team;
 import me.happypikachu.BattleTags.BattleTags;
-import me.happypikachu.BattleTags.events.BetterTagsCustomTagEvent;
 import me.happypikachu.BattleTags.factionsconvertor.Factions1678convertor;
 import me.happypikachu.BattleTags.factionsconvertor.Factions20convertor;
 import me.happypikachu.BattleTags.factionsconvertor.FactionsConvertor;
@@ -95,11 +94,8 @@ public abstract class TagsManager implements Listener{
 				}
 			}
 		}
-		
-		//Allow integration from other plugins
-		BetterTagsCustomTagEvent tagEvent = new BetterTagsCustomTagEvent(player, seenPlayer, tag);
-		plugin.getServer().getPluginManager().callEvent(tagEvent);
-		return tagEvent.getTag();
+	
+		return tag;
 	}
 	
 	public void update(String player){
