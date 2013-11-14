@@ -41,7 +41,10 @@ public abstract class TagsManager implements Listener{
 	public String getTag(String player, String seenPlayer){
 		String tag = seenPlayer;
 		if (plugin.getServer().getPluginManager().isPluginEnabled("Factions")){
-			tag = factions.getRelColor(Bukkit.getPlayer(player), Bukkit.getPlayer(seenPlayer)) + seenPlayer;
+			String worldName = Bukkit.getPlayer(player).getWorld().getName();
+			if (plugin.getConfig().getBoolean("Factions." + worldName)){
+				tag = factions.getRelColor(Bukkit.getPlayer(player), Bukkit.getPlayer(seenPlayer)) + seenPlayer;
+			}
 		}
 		
 		//SimpleClans by phaed420
