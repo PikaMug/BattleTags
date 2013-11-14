@@ -35,7 +35,29 @@ public class BattleTagsProtocolManager extends TagsManager{
 	          }
 	          final PacketContainer packetContainer = event.getPacket();
 	          try {
-	        	  packetContainer.getSpecificModifier(String.class).write(0, getTag(event.getPlayer(), Bukkit.getServer().getPlayer(packetContainer.getSpecificModifier(String.class).read(0))));
+	        	  final String seen = packetContainer.getSpecificModifier(String.class).read(0);
+	        	  Player seenPlayer = Bukkit.getServer().getPlayer(seen);
+	        	  
+	        	  // Bukkit.getPlayer returns null when the player is spawing while teleporting but the player is online
+	        	  // so when this happens, we schedule a hide and show player in the next tick
+	        	  if(seenPlayer == null){
+	        		  final Player player = event.getPlayer();
+	        		  plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+						@Override
+						public void run() {
+							Player seenPlayer = Bukkit.getServer().getPlayer(seen);
+							if(seenPlayer == null){
+								plugin.getLogger().warning("Failed to change the tag of "+seen);
+								return;
+							}
+							player.hidePlayer(seenPlayer);
+							player.showPlayer(seenPlayer);
+						}
+	        		  });
+	        		  return;
+	        	  }
+	        	  
+	        	  packetContainer.getSpecificModifier(String.class).write(0, getTag(event.getPlayer(), seenPlayer));
 	           } catch (final FieldAccessException e) {
 	               e.printStackTrace();
 	           }

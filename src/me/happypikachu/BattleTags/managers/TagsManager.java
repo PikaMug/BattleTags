@@ -4,6 +4,7 @@ import com.p000ison.dev.simpleclans2.api.SCCore;
 import com.palmergames.bukkit.towny.utils.CombatUtil;
 import com.tommytony.war.Team;
 import me.happypikachu.BattleTags.BattleTags;
+import me.happypikachu.BattleTags.events.BattleTagsCustomTagEvent;
 import me.happypikachu.BattleTags.factionsconvertor.Factions1678convertor;
 import me.happypikachu.BattleTags.factionsconvertor.Factions20convertor;
 import me.happypikachu.BattleTags.factionsconvertor.FactionsConvertor;
@@ -41,7 +42,10 @@ public abstract class TagsManager implements Listener{
 	public String getTag(String player, String seenPlayer){
 		String tag = seenPlayer;
 		if (plugin.getServer().getPluginManager().isPluginEnabled("Factions")){
-			tag = factions.getRelColor(Bukkit.getPlayer(player), Bukkit.getPlayer(seenPlayer)) + seenPlayer;
+			String worldName = Bukkit.getPlayer(player).getWorld().getName();
+			if (plugin.getConfig().getBoolean("Factions." + worldName)){
+				tag = factions.getRelColor(Bukkit.getPlayer(player), Bukkit.getPlayer(seenPlayer)) + seenPlayer;
+			}
 		}
 		
 		//SimpleClans by phaed420
@@ -91,8 +95,11 @@ public abstract class TagsManager implements Listener{
 				}
 			}
 		}
-	
-		return tag;
+		
+		//Allow integration from other plugins
+		BattleTagsCustomTagEvent tagEvent = new BattleTagsCustomTagEvent(player, seenPlayer, tag);
+		plugin.getServer().getPluginManager().callEvent(tagEvent);
+		return tagEvent.getTag();
 	}
 	
 	public void update(String player){
