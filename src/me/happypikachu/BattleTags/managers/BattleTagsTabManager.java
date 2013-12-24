@@ -35,9 +35,14 @@ public class BattleTagsTabManager extends TagsManager implements Listener {
 	
 	@EventHandler
 	public void quit(PlayerQuitEvent e){
-		for (Player p : Bukkit.getServer().getOnlinePlayers()){
-			update(p);
-		}
+		new BukkitRunnable(){
+			@Override
+			public void run() {
+				for (Player p : Bukkit.getServer().getOnlinePlayers()){
+					update(p);
+				}
+			}
+		}.runTask(plugin);
 	}
 	
 	@Override
@@ -51,7 +56,7 @@ public class BattleTagsTabManager extends TagsManager implements Listener {
 				if (i > (TabAPI.getHorizSize()*TabAPI.getVertSize()) ) break;
 				
 				//i = 20, 20/3 == 
-				System.out.println(Math.floor(i/3) + " | " + i%3);
+				System.out.println(Math.floor(i/3) + " | " + i%3 + " | " + getTag(players[i], player));
 				TabAPI.setTabString(plugin, players[i], (int)Math.floor(i/3), i%3, getTag(players[i], player));
 			}
 		}

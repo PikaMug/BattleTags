@@ -17,11 +17,11 @@ public class BattleTagsTownyListener implements Listener {
 	
 	@EventHandler
 	public void onPlayerChangePlotEvent (PlayerChangePlotEvent event) {
-		for (Player p : Bukkit.getOnlinePlayers()) {
-			if (plugin.getConfig().getBoolean("Towny." + p.getWorld().getName())) {
-				plugin.update(p);
-			}
-		}
+//		for (Player p : Bukkit.getOnlinePlayers()) {
+//			if (plugin.getConfig().getBoolean("Towny." + p.getWorld().getName())) {
+//				plugin.update(p);
+//			}
+//		}
 	}
 	
 	@EventHandler

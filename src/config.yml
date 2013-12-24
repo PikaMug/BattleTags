@@ -1,3 +1,7 @@
+group: false
+nametags: true
+playerlist: true
+
 Factions:
 SimpleClans:
   ally: b

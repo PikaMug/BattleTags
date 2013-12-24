@@ -5,14 +5,14 @@
 	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/Factions.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/WorldKill/NameTagAPI.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/WorldKill/TagAPI.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/Towny.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/ZZ_disabled/Towny.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/craftbukkit.jar" sourcepath="C:/Users/Brord/Downloads/CraftBukkit-master.zip">
 		<attributes>
 			<attribute name="javadoc_location" value="http://jd.bukkit.org/apidocs/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/SimpleClans.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/war-1.8-PREVIEW.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/ZZ_disabled/SimpleClans.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/ZZ_disabled/war-1.8-PREVIEW.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/ZZ_disabled/Factions.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/mcore.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/ProtocolLib.jar">

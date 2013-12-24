@@ -2,7 +2,6 @@ package me.happypikachu.BattleTags;
 
 import me.happypikachu.BattleTags.listeners.*;
 import me.happypikachu.BattleTags.managers.BattleTagsAPIManager;
-import me.happypikachu.BattleTags.managers.BattleTagsNametagManager;
 import me.happypikachu.BattleTags.managers.BattleTagsOwnManager;
 import me.happypikachu.BattleTags.managers.BattleTagsProtocolManager;
 import me.happypikachu.BattleTags.managers.BattleTagsTabManager;
@@ -24,6 +23,25 @@ public class BattleTags extends JavaPlugin {
 	public void onEnable() {
 		//Copy config.yml and update header
 		saveDefaultConfig();
+		updateConfig();
+        getConfig().options().copyDefaults(true);
+        saveConfig();
+        
+        NametagsEnabled = getConfig().getBoolean("nametags", true);
+        ListEnabled = getConfig().getBoolean("playerlist", true);
+        
+        getCommand("battletags").setExecutor(new BattleTagsCommandExecutor(this));
+        
+        loadDependencies();
+        loadNameTags(); 
+        loadPlayerList();
+        loadPlayers();
+	}
+	
+	/**
+	 * 
+	 */
+	private void updateConfig() {
 		getConfig().options().header("BattleTags+ v" + getDescription().getVersion() + " Configuration" + 
 				"\nby HappyPikachu -aka- FlyingPikachu, Modified by kwek20" +
 				"\n" + 
@@ -40,11 +58,13 @@ public class BattleTags extends JavaPlugin {
         		}
         	}
         }
-        getConfig().options().copyDefaults(true);
-        saveConfig();
-        
-        getCommand("battletags").setExecutor(new BattleTagsCommandExecutor(this));
-        if (getServer().getPluginManager().isPluginEnabled("Factions")) {
+	}
+
+	/**
+	 * Loads all our dependencies with the listeners
+	 */
+	private void loadDependencies() {
+		if (getServer().getPluginManager().isPluginEnabled("Factions")) {
         	String version = getServer().getPluginManager().getPlugin("Factions").getDescription().getVersion();
         	if (version.startsWith("2.")){
         		getServer().getPluginManager().registerEvents(new BattleTagsFactions2Listener(this), this);
@@ -70,21 +90,41 @@ public class BattleTags extends JavaPlugin {
         	getServer().getPluginManager().registerEvents(new BattleTagsWarListener(this), this);
         	getLogger().info("Hooked into War " + getServer().getPluginManager().getPlugin("War").getDescription().getVersion());
         }
-        
-        if (NametagsEnabled){
-	        if (getServer().getPluginManager().isPluginEnabled("TagAPI")){
-	        	getServer().getPluginManager().registerEvents(Namemanager = new BattleTagsAPIManager(this), this);
-	        	getLogger().info("Activated integration with TagAPI");
-	        } else if (getServer().getPluginManager().isPluginEnabled("ProtocolLib")){
-	        	getServer().getPluginManager().registerEvents(Namemanager = new BattleTagsProtocolManager(this), this);
-	        	getLogger().info("Activated integration with ProtocolLib");
-	        } else {
-	        	getLogger().warning("We do not yet have our own nametag manager! Please install ProtocolLib or TagAPI");
-	        	getServer().getPluginManager().registerEvents(Namemanager = new BattleTagsOwnManager(this), this);
-	        }
+	}
+
+	/**
+	 * loads our nametag managers
+	 */
+	private void loadNameTags() {
+		 if (NametagsEnabled){
+		    if (getServer().getPluginManager().isPluginEnabled("TagAPI")){
+		    	getServer().getPluginManager().registerEvents(Namemanager = new BattleTagsAPIManager(this), this);
+		        getLogger().info("Activated integration with TagAPI");
+		    } else if (getServer().getPluginManager().isPluginEnabled("ProtocolLib")){
+		        getServer().getPluginManager().registerEvents(Namemanager = new BattleTagsProtocolManager(this), this);
+		        getLogger().info("Activated integration with ProtocolLib");
+		    } else {
+		        getLogger().warning("We do not yet have our own nametag manager! Please install ProtocolLib or TagAPI");
+		        getServer().getPluginManager().registerEvents(Namemanager = new BattleTagsOwnManager(this), this);
+		    }
+	    }
+	}
+
+	/**
+	 * loops over all players and updates them
+	 */
+	private void loadPlayers() {
+		Player[] players = getServer().getOnlinePlayers();
+        for (Player p : players){
+        	update(p);
         }
-        
-        if (ListEnabled){
+	}
+
+	/**
+	 * loads our playerlist managers
+	 */
+	private void loadPlayerList() {
+		if (ListEnabled){
         	if (getServer().getPluginManager().isPluginEnabled("TabAPI")){
         		getServer().getPluginManager().registerEvents(Tabmanager = new BattleTagsTabManager(this), this);
 	        	getLogger().info("Activated integration with TabAPI");
@@ -93,17 +133,17 @@ public class BattleTags extends JavaPlugin {
 	        	getServer().getPluginManager().registerEvents(Tabmanager = new BattleTagsOwnTabManager(this), this);
 	        }
         }
-        
-        Player[] players = getServer().getOnlinePlayers();
-        for (Player p : players){
-        	update(p);
-        }
 	}
-	
+
 	@Override
 	public void onDisable() {
 		if (getServer().getPluginManager().isPluginEnabled("ProtocolLib")){
-			Namemanager.shutdown();
+			if (Namemanager != null){
+				Namemanager.shutdown();
+			}
+			if (Tabmanager != null){
+				Tabmanager.shutdown();
+			}
 		}
 	}
 	
