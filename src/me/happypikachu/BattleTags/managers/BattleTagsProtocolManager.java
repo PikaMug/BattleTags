@@ -5,10 +5,8 @@ import org.bukkit.entity.Player;
 
 import me.happypikachu.BattleTags.BattleTags;
 
-import com.comphenix.protocol.Packets;
+import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.events.ConnectionSide;
-import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
@@ -26,14 +24,17 @@ public class BattleTagsProtocolManager extends TagsManager{
 	    ProtocolLibrary.getProtocolManager().removePacketListeners(this.plugin);
 	}
 
+	//this.plugin, ConnectionSide.SERVER_SIDE, ListenerPriority.HIGH, Packets.Server.NAMED_ENTITY_SPAWN
+	
 	public void startup() {
-	    ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(this.plugin, ConnectionSide.SERVER_SIDE, ListenerPriority.HIGH, Packets.Server.NAMED_ENTITY_SPAWN) {
+	    ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(PacketAdapter.params(plugin, PacketType.findLegacy(20)).serverSide()) {
 	       @Override
 	       public void onPacketSending(PacketEvent event) {
-	          if (event.getPacketID() != Packets.Server.NAMED_ENTITY_SPAWN) {
-	              return;
-	          }
+	    	   
+	         
 	          final PacketContainer packetContainer = event.getPacket();
+	          
+	          System.out.println(event.isServerPacket() + " " + event.getPacketType() + " " + event.getPlayer().getName());
 	          try {
 	        	  final String seen = packetContainer.getSpecificModifier(String.class).read(0);
 	        	  Player seenPlayer = Bukkit.getServer().getPlayer(seen);

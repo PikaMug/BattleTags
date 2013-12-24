@@ -15,6 +15,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class BattleTags extends JavaPlugin {
 
 	public TagsManager Namemanager;
+	public TagsManager Tabmanager;
+	
 	public boolean NametagsEnabled = true;
 	public boolean ListEnabled = true;
 	
@@ -73,23 +75,28 @@ public class BattleTags extends JavaPlugin {
 	        if (getServer().getPluginManager().isPluginEnabled("TagAPI")){
 	        	getServer().getPluginManager().registerEvents(Namemanager = new BattleTagsAPIManager(this), this);
 	        	getLogger().info("Activated integration with TagAPI");
-	        } else if (getServer().getPluginManager().isPluginEnabled("NameTagAPI")){
-	        	getServer().getPluginManager().registerEvents(Namemanager = new BattleTagsNametagManager(this), this);
-	        	getLogger().info("Activated integration with NameTagAPI");
 	        } else if (getServer().getPluginManager().isPluginEnabled("ProtocolLib")){
 	        	getServer().getPluginManager().registerEvents(Namemanager = new BattleTagsProtocolManager(this), this);
 	        	getLogger().info("Activated integration with ProtocolLib");
 	        } else {
-	        	getLogger().warning("We do not yet have our own nametag manager! Please install TagAPI or NameTagAPI");
+	        	getLogger().warning("We do not yet have our own nametag manager! Please install ProtocolLib or TagAPI");
 	        	getServer().getPluginManager().registerEvents(Namemanager = new BattleTagsOwnManager(this), this);
 	        }
         }
         
         if (ListEnabled){
         	if (getServer().getPluginManager().isPluginEnabled("TabAPI")){
-        		getServer().getPluginManager().registerEvents(Namemanager = new BattleTagsTabManager(this), this);
+        		getServer().getPluginManager().registerEvents(Tabmanager = new BattleTagsTabManager(this), this);
 	        	getLogger().info("Activated integration with TabAPI");
-        	}
+        	} else {
+	        	getLogger().warning("We do not yet have our own tab manager! Please install ProtocolLib or TabAPI");
+	        	getServer().getPluginManager().registerEvents(Tabmanager = new BattleTagsOwnTabManager(this), this);
+	        }
+        }
+        
+        Player[] players = getServer().getOnlinePlayers();
+        for (Player p : players){
+        	update(p);
         }
 	}
 	
@@ -103,6 +110,9 @@ public class BattleTags extends JavaPlugin {
 	public void update(Player p){
 		if (Namemanager != null){
 			Namemanager.update(p);
+		}
+		if (Tabmanager != null){
+			Tabmanager.update(p);
 		}
 	}
 }

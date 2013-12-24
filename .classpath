@@ -11,12 +11,11 @@
 			<attribute name="javadoc_location" value="http://jd.bukkit.org/apidocs/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/00_disabled/SimpleClans (1).jar"/>
-	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/00_disabled/SimpleClans-2.4.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/00_disabled/war-1.7.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/00_disabled/Factions.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/SimpleClans.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/war-1.8-PREVIEW.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/ZZ_disabled/Factions.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/mcore.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/ProtocolLib-2.3.1-SNAPSHOT.jar">
+	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/ProtocolLib.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="http://aadnk.github.com/ProtocolLib/Javadoc/"/>
 		</attributes>
@@ -26,5 +25,6 @@
 			<attribute name="javadoc_location" value="jar:file:/C:/Users/Brord/Dropbox/plugin/tabAPI/doc.zip!/doc"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/ZZ_disabled/SimpleClans-2.4.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
