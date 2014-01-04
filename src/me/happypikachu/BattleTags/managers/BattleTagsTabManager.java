@@ -15,7 +15,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.mcsg.double0negative.tabapi.TabAPI;
 
-public class BattleTagsTabManager extends TagsManager implements Listener {
+public class BattleTagsTabManager extends BattleTagsManager implements Listener {
 	
 	private boolean grouping = false;
 	

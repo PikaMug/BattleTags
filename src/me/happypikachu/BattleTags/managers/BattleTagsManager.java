@@ -15,11 +15,11 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
-public abstract class TagsManager implements Listener{
+public abstract class BattleTagsManager implements Listener{
 	protected BattleTags plugin;
 	protected FactionsConvertor factions;
 
-	public TagsManager(BattleTags plugin) {
+	public BattleTagsManager(BattleTags plugin) {
 		this.plugin = plugin;
 		setupFactions();
 	}

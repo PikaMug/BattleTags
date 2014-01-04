@@ -3,9 +3,11 @@ package me.happypikachu.BattleTags;
 import me.happypikachu.BattleTags.listeners.*;
 import me.happypikachu.BattleTags.managers.BattleTagsAPIManager;
 import me.happypikachu.BattleTags.managers.BattleTagsOwnManager;
+import me.happypikachu.BattleTags.managers.BattleTagsOwnTabManager;
 import me.happypikachu.BattleTags.managers.BattleTagsProtocolManager;
+import me.happypikachu.BattleTags.managers.BattleTagsProtocolTabManager;
 import me.happypikachu.BattleTags.managers.BattleTagsTabManager;
-import me.happypikachu.BattleTags.managers.TagsManager;
+import me.happypikachu.BattleTags.managers.BattleTagsManager;
 
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -13,8 +15,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class BattleTags extends JavaPlugin {
 
-	public TagsManager Namemanager;
-	public TagsManager Tabmanager;
+	public BattleTagsManager Namemanager;
+	public BattleTagsManager Tabmanager;
 	
 	public boolean NametagsEnabled = true;
 	public boolean ListEnabled = true;
@@ -128,7 +130,10 @@ public class BattleTags extends JavaPlugin {
         	if (getServer().getPluginManager().isPluginEnabled("TabAPI")){
         		getServer().getPluginManager().registerEvents(Tabmanager = new BattleTagsTabManager(this), this);
 	        	getLogger().info("Activated integration with TabAPI");
-        	} else {
+		    } else if (getServer().getPluginManager().isPluginEnabled("ProtocolLib")){
+		        getServer().getPluginManager().registerEvents(Tabmanager = new BattleTagsProtocolTabManager(this), this);
+		        getLogger().info("Activated integration with ProtocolLib");
+		    } else {
 	        	getLogger().warning("We do not yet have our own tab manager! Please install ProtocolLib or TabAPI");
 	        	getServer().getPluginManager().registerEvents(Tabmanager = new BattleTagsOwnTabManager(this), this);
 	        }

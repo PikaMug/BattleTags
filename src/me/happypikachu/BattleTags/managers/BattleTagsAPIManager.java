@@ -8,7 +8,7 @@ import org.bukkit.event.Listener;
 import org.kitteh.tag.PlayerReceiveNameTagEvent;
 import org.kitteh.tag.TagAPI;
 
-public class BattleTagsAPIManager extends TagsManager implements Listener {
+public class BattleTagsAPIManager extends BattleTagsManager implements Listener {
     public BattleTagsAPIManager(BattleTags plugin) {
             super(plugin);
     }

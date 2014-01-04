@@ -1,17 +1,17 @@
 /**
  * 
  */
-package me.happypikachu.BattleTags;
+package me.happypikachu.BattleTags.managers;
 
 import org.bukkit.entity.Player;
 
-import me.happypikachu.BattleTags.managers.TagsManager;
+import me.happypikachu.BattleTags.BattleTags;
 
 /**
  * @author Brord
  *
  */
-public class BattleTagsOwnTabManager extends TagsManager {
+public class BattleTagsOwnTabManager extends BattleTagsManager {
 
 	/**
 	 * @param plugin

@@ -12,12 +12,15 @@ import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
+import com.comphenix.protocol.events.PacketListener;
 import com.comphenix.protocol.reflect.FieldAccessException;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 import com.comphenix.protocol.wrappers.WrappedGameProfile;
 
-public class BattleTagsProtocolManager extends TagsManager{
+public class BattleTagsProtocolManager extends BattleTagsManager{
 	
+	private PacketListener listener;
+
 	public BattleTagsProtocolManager(BattleTags plugin) {
 		super(plugin);
 		startup();
@@ -25,11 +28,11 @@ public class BattleTagsProtocolManager extends TagsManager{
 
 	@Override
  	public void shutdown() {
-	    ProtocolLibrary.getProtocolManager().removePacketListeners(plugin);
+	    if (listener != null)ProtocolLibrary.getProtocolManager().removePacketListener(listener);
 	}
 	
 	public void startup() {
-	    ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(PacketAdapter.params(plugin, PacketType.Play.Server.NAMED_ENTITY_SPAWN)) {
+	    ProtocolLibrary.getProtocolManager().addPacketListener(listener = new PacketAdapter(PacketAdapter.params(plugin, PacketType.Play.Server.NAMED_ENTITY_SPAWN)) {
 	       @Override
 	       public void onPacketSending(PacketEvent event) {
 	    	   

@@ -8,7 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
-public class BattleTagsNametagManager extends TagsManager implements Listener {
+public class BattleTagsNametagManager extends BattleTagsManager implements Listener {
 	
     public BattleTagsNametagManager(BattleTags plugin) {
     	super(plugin);

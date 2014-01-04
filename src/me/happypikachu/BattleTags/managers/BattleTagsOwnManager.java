@@ -7,7 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-public class BattleTagsOwnManager extends TagsManager implements Listener {
+public class BattleTagsOwnManager extends BattleTagsManager implements Listener {
 	
 	public BattleTagsOwnManager(BattleTags plugin) {
 		super(plugin);
