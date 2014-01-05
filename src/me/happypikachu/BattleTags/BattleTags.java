@@ -1,5 +1,6 @@
 package me.happypikachu.BattleTags;
 
+import me.happypikachu.BattleTags.compatibility.HealthBar;
 import me.happypikachu.BattleTags.listeners.*;
 import me.happypikachu.BattleTags.managers.BattleTagsAPIManager;
 import me.happypikachu.BattleTags.managers.BattleTagsOwnManager;
@@ -54,6 +55,8 @@ public class BattleTags extends JavaPlugin {
 				"\n");
         getConfig().options().copyHeader(true);
         for (String pluginName : getDescription().getSoftDepend()) {
+        	if (pluginName.equalsIgnoreCase("healthbar")) continue;
+        	
         	if (getServer().getPluginManager().getPlugin(pluginName) != null) {
         		for (World world: getServer().getWorlds()) {
         			getConfig().addDefault(pluginName + "." + world.getName(), true);
@@ -91,6 +94,11 @@ public class BattleTags extends JavaPlugin {
         if (getServer().getPluginManager().isPluginEnabled("War")) {
         	getServer().getPluginManager().registerEvents(new BattleTagsWarListener(this), this);
         	getLogger().info("Hooked into War " + getServer().getPluginManager().getPlugin("War").getDescription().getVersion());
+        }
+        
+        if (getServer().getPluginManager().isPluginEnabled("HealthBar")) {
+        	getServer().getPluginManager().registerEvents(new HealthBar(this), this);
+        	getLogger().info("Added HealthBar " + getServer().getPluginManager().getPlugin("HealthBar").getDescription().getVersion() + " compatibility");
         }
 	}
 
