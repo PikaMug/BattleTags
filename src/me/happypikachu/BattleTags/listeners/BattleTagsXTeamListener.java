@@ -38,11 +38,11 @@ public class BattleTagsXTeamListener implements Listener {
     
     @EventHandler
     public void create(TeamCreateEvent e){
-    	
+    	plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, updateTask);
     }
     
     @EventHandler
     public void disband(TeamDisbandEvent e){
-    	
+    	plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, updateTask);
     }
 }

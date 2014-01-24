@@ -5,7 +5,7 @@ authors: [HappyPikachu, kwek20]
 website: http://dev.bukkit.org/server-mods/battletags/
 
 main: me.happypikachu.BattleTags.BattleTags
-softdepend: [Factions, SimpleClans, SimpleClans2, Towny, War, TagAPI, TabAPI, ProtocolLib, HealthBar]
+softdepend: [Factions, SimpleClans, SimpleClans2, Towny, War, TagAPI, TabAPI, ProtocolLib, HealthBar, xTeam]
 
 commands:
   battletags:

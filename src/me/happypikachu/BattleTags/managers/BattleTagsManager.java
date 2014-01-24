@@ -3,13 +3,16 @@ package me.happypikachu.BattleTags.managers;
 import com.p000ison.dev.simpleclans2.api.SCCore;
 import com.palmergames.bukkit.towny.utils.CombatUtil;
 import com.tommytony.war.Team;
+
 import me.happypikachu.BattleTags.BattleTags;
 import me.happypikachu.BattleTags.events.BattleTagsCustomTagEvent;
 import me.happypikachu.BattleTags.factionsconvertor.Factions1678convertor;
 import me.happypikachu.BattleTags.factionsconvertor.Factions20convertor;
 import me.happypikachu.BattleTags.factionsconvertor.FactionsConvertor;
+import me.protocos.xteam.xTeam;
 import net.sacredlabyrinth.phaed.simpleclans.Clan;
 import net.sacredlabyrinth.phaed.simpleclans.SimpleClans;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -92,6 +95,21 @@ public abstract class BattleTagsManager implements Listener{
 			if (plugin.getConfig().getBoolean("War." + Bukkit.getServer().getPlayer(player).getWorld().getName())) {
 				if (Team.getTeamByPlayerName(seenPlayer) != null) {
 					tag =  Team.getTeamByPlayerName(seenPlayer).getKind().getColor() + seenPlayer;
+				}
+			}
+		}
+		
+		//xTeam by 
+		if (plugin.getServer().getPluginManager().isPluginEnabled("xTeam")) {
+			if (plugin.getConfig().getBoolean("xTeam." + Bukkit.getServer().getPlayer(player).getWorld().getName())) {
+				if (xTeam.getInstance().getPlayerManager().getPlayer(player) != null) {
+					if (!xTeam.getInstance().getPlayerManager().getPlayer(player).hasTeam()){
+						tag = ChatColor.getByChar(plugin.getConfig().getString("xTeam.neutral")) + seenPlayer;
+					} else if (xTeam.getInstance().getPlayerManager().getPlayer(player).getTeammates().contains(xTeam.getInstance().getPlayerManager().getPlayer(seenPlayer))){
+						tag = ChatColor.getByChar(plugin.getConfig().getString("xTeam.ally")) + seenPlayer;
+					} else {
+						tag = ChatColor.getByChar(plugin.getConfig().getString("xTeam.enemy")) + seenPlayer;
+					}
 				}
 			}
 		}

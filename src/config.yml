@@ -16,4 +16,7 @@ SimpleClans2:
 Towny:
   ally: b
   enemy: c
-War:
+xTeam:
+  ally: b
+  enemy: c
+  neutral: f
