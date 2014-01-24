@@ -95,6 +95,10 @@ public class BattleTags extends JavaPlugin {
         	getServer().getPluginManager().registerEvents(new BattleTagsWarListener(this), this);
         	getLogger().info("Hooked into War " + getServer().getPluginManager().getPlugin("War").getDescription().getVersion());
         }
+        if (getServer().getPluginManager().isPluginEnabled("xTeam")) {
+        	getServer().getPluginManager().registerEvents(new BattleTagsXTeamListener(this), this);
+        	getLogger().info("Added xTeam " + getServer().getPluginManager().getPlugin("xTeam").getDescription().getVersion() + " compatibility");
+        }
         
         if (getServer().getPluginManager().isPluginEnabled("HealthBar")) {
         	getServer().getPluginManager().registerEvents(new HealthBar(this), this);
