@@ -4,7 +4,6 @@
 package me.happypikachu.BattleTags.listeners;
 
 import me.happypikachu.BattleTags.BattleTags;
-import me.protocos.xteam.api.event.ITeamEvent;
 import me.protocos.xteam.api.event.TeamCreateEvent;
 import me.protocos.xteam.api.event.TeamDisbandEvent;
 
@@ -25,7 +24,7 @@ public class BattleTagsXTeamListener implements Listener {
 		@Override
 		public void run() {
 			for (Player p : Bukkit.getOnlinePlayers()) {
-				if (plugin.getConfig().getBoolean("Factions." + p.getWorld().getName())) {
+				if (plugin.getConfig().getBoolean("xTeam." + p.getWorld().getName())) {
 					plugin.update(p);
 				}
 			}
