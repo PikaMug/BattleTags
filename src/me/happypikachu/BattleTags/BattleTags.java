@@ -116,7 +116,7 @@ public class BattleTags extends JavaPlugin {
 		        getLogger().info("Activated integration with TagAPI");
 		    } else if (getServer().getPluginManager().isPluginEnabled("ProtocolLib")){
 		        getServer().getPluginManager().registerEvents(Namemanager = new BattleTagsProtocolManager(this), this);
-		        getLogger().info("Activated integration with ProtocolLib");
+		        getLogger().info("Activated integration with ProtocolLib for the nametags");
 		    } else {
 		        getLogger().warning("We do not yet have our own nametag manager! Please install ProtocolLib or TagAPI");
 		        getServer().getPluginManager().registerEvents(Namemanager = new BattleTagsOwnManager(this), this);
@@ -144,7 +144,7 @@ public class BattleTags extends JavaPlugin {
 	        	getLogger().info("Activated integration with TabAPI");
 		    } else if (getServer().getPluginManager().isPluginEnabled("ProtocolLib")){
 		        getServer().getPluginManager().registerEvents(Tabmanager = new BattleTagsProtocolTabManager(this), this);
-		        getLogger().info("Activated integration with ProtocolLib");
+		        getLogger().info("Activated integration with ProtocolLib for the Tablist");
 		    } else {
 	        	getLogger().warning("We do not yet have our own tab manager! Please install ProtocolLib or TabAPI");
 	        	getServer().getPluginManager().registerEvents(Tabmanager = new BattleTagsOwnTabManager(this), this);

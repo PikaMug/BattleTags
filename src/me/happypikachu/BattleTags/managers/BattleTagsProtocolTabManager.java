@@ -6,6 +6,7 @@ package me.happypikachu.BattleTags.managers;
 import me.happypikachu.BattleTags.BattleTags;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -48,33 +49,13 @@ public class BattleTagsProtocolTabManager extends BattleTagsManager {
 	    	   
 	         
 	          final PacketContainer packetContainer = event.getPacket();
-	          try {
-	        	   
-	        	  WrappedGameProfile profile = packetContainer.getGameProfiles().read(0);
-	        	  WrappedDataWatcher field = packetContainer.getDataWatcherModifier().read(0);
+	        	  final String seen = ChatColor.stripColor(packetContainer.getStrings().read(0));
 	        	  
-	        	  Entity e = field.getEntity();
-	        	  
-	        	  String temp = null;
-	        	  if (e != null && e instanceof LivingEntity){
-	        		  if (e instanceof Player){
-	        			  temp = ((Player) e).getName();
-	        		  } else {
-	        			  temp = ((LivingEntity) e).getCustomName();
-	        		  }
-	        		  
-	        	  } else {
-	        		  return;
-	        	  }
-	        	  
-	        	  final String seen = temp;
 	        	  Player seenPlayer = Bukkit.getServer().getPlayer(seen);
 	        	  if (seenPlayer == null) return;
-	        	  packetContainer.getGameProfiles().write(0, profile.withName(getTag(event.getPlayer().getName(), profile.getName())));
-	        	 
-	           } catch (final FieldAccessException e) {
-	               e.printStackTrace();
-	           }
+	        	  
+	        	  //System.out.println("Received info packet: " + seen + " " + event.getPlayer().getName() + " " + getTag(event.getPlayer().getName(), seen));
+	        	  packetContainer.getStrings().write(0, getTag(event.getPlayer().getName(), seen));
 	       }
 	   });
 	}

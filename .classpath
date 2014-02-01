@@ -23,6 +23,6 @@
 	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/HealthBar.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/spigot.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/ZZ_battletags/Factions 1-7-8.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/xTeam.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/ZZ_battletags/xTeam.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

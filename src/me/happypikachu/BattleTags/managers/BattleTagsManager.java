@@ -38,10 +38,22 @@ public abstract class BattleTagsManager implements Listener{
 		}
 	}
 	
-	protected String getTag(Player player, Player namedPlayer) {
-		return getTag(player.getName(), namedPlayer.getName());
+	/**
+	 * 
+	 * @param player
+	 * @param seenPlayer
+	 * @return
+	 */
+	protected String getTag(Player player, Player seenPlayer) {
+		return getTag(player.getName(), seenPlayer.getName());
 	}
 	
+	/**
+	 * 
+	 * @param player
+	 * @param seenPlayer
+	 * @return
+	 */
 	public String getTag(String player, String seenPlayer){
 		String tag = seenPlayer;
 		if (plugin.getServer().getPluginManager().isPluginEnabled("Factions")){
@@ -49,10 +61,7 @@ public abstract class BattleTagsManager implements Listener{
 			if (plugin.getConfig().getBoolean("Factions." + worldName)){
 				tag = factions.getRelColor(Bukkit.getPlayer(player), Bukkit.getPlayer(seenPlayer)) + seenPlayer;
 			}
-		}
-		
-		//SimpleClans by phaed420
-		if (plugin.getServer().getPluginManager().isPluginEnabled("SimpleClans")) {
+		} else if (plugin.getServer().getPluginManager().isPluginEnabled("SimpleClans")) {//SimpleClans by phaed420
 			SimpleClans sc = (SimpleClans) plugin.getServer().getPluginManager().getPlugin("SimpleClans");
 			Clan pClan = sc.getClanManager().getClanByPlayerName(player);
 			Clan npClan = sc.getClanManager().getClanByPlayerName(seenPlayer);
@@ -65,10 +74,7 @@ public abstract class BattleTagsManager implements Listener{
 			} else if (pClan.isWarring(npClan.getTag())) {
 				tag =  ChatColor.getByChar(plugin.getConfig().getString("SimpleClans.warring")) + seenPlayer;
 			}
-		}
-				
-		//SimpleClans2 by p000ison
-		if (plugin.getServer().getPluginManager().isPluginEnabled("SimpleClans2")) {
+		} else if (plugin.getServer().getPluginManager().isPluginEnabled("SimpleClans2")) { //SimpleClans2 by p000ison
 			SCCore sc= (SCCore) plugin.getServer().getPluginManager().getPlugin("SimpleClans2");
 			if (sc.getClanPlayerManager().getClanPlayer(player).getClan().isAlly(sc.getClanPlayerManager().getClanPlayer(seenPlayer).getClan())) {
 				tag =  ChatColor.getByChar(plugin.getConfig().getString("SimpleClans2.ally")) + seenPlayer;
@@ -79,28 +85,13 @@ public abstract class BattleTagsManager implements Listener{
 			} else if (sc.getClanPlayerManager().getClanPlayer(player).getClan().isWarring(sc.getClanPlayerManager().getClanPlayer(seenPlayer).getClan())) {
 				tag =  ChatColor.getByChar(plugin.getConfig().getString("SimpleClans2.warring")) + seenPlayer;
 			}
-		}
-		
-		//Towny by ElgarL
-		if (plugin.getServer().getPluginManager().isPluginEnabled("Towny")) {
+		} else if (plugin.getServer().getPluginManager().isPluginEnabled("Towny")) { //Towny by ElgarL
 			if (CombatUtil.isAlly(player, seenPlayer)) {
 				tag =  ChatColor.getByChar(plugin.getConfig().getString("Towny.ally")) + seenPlayer;
 			} else if (CombatUtil.isEnemy(player, seenPlayer)) {
 				tag =  ChatColor.getByChar(plugin.getConfig().getString("Towny.enemy")) + seenPlayer;
 			}
-		}
-				
-		//War by tommytony
-		if (plugin.getServer().getPluginManager().isPluginEnabled("War")) {
-			if (plugin.getConfig().getBoolean("War." + Bukkit.getServer().getPlayer(player).getWorld().getName())) {
-				if (Team.getTeamByPlayerName(seenPlayer) != null) {
-					tag =  Team.getTeamByPlayerName(seenPlayer).getKind().getColor() + seenPlayer;
-				}
-			}
-		}
-		
-		//xTeam by 
-		if (plugin.getServer().getPluginManager().isPluginEnabled("xTeam")) {
+		} else if (plugin.getServer().getPluginManager().isPluginEnabled("xTeam")) { //xTeam by 
 			if (plugin.getConfig().getBoolean("xTeam." + Bukkit.getServer().getPlayer(player).getWorld().getName())) {
 				if (xTeam.getInstance().getPlayerManager().getPlayer(player) != null) {
 					if (!xTeam.getInstance().getPlayerManager().getPlayer(player).hasTeam()){
@@ -110,6 +101,15 @@ public abstract class BattleTagsManager implements Listener{
 					} else {
 						tag = ChatColor.getByChar(plugin.getConfig().getString("xTeam.enemy")) + seenPlayer;
 					}
+				}
+			}
+		}
+		
+		//War by tommytony
+		if (plugin.getServer().getPluginManager().isPluginEnabled("War")) {
+			if (plugin.getConfig().getBoolean("War." + Bukkit.getServer().getPlayer(player).getWorld().getName())) {
+				if (Team.getTeamByPlayerName(seenPlayer) != null) {
+					tag =  Team.getTeamByPlayerName(seenPlayer).getKind().getColor() + seenPlayer;
 				}
 			}
 		}
