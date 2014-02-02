@@ -18,7 +18,7 @@ import com.ancientshores.AncientRPG.API.AncientRPGPartyLeaveEvent;
 public class BattleTagsAncientRPGListener extends BattleTagListener {
 	
     public BattleTagsAncientRPGListener(BattleTags plugin) {
-    	super(plugin, "ancientrpg");
+    	super(plugin, "AncientRPG");
     }
     
     @EventHandler

@@ -12,6 +12,7 @@ import me.happypikachu.BattleTags.managers.BattleTagsManager;
 
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.AuthorNagException;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class BattleTags extends JavaPlugin {
@@ -24,7 +25,6 @@ public class BattleTags extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {
-		//Copy config.yml and update header
 		saveDefaultConfig();
 		updateConfig();
         getConfig().options().copyDefaults(true);
@@ -98,9 +98,14 @@ public class BattleTags extends JavaPlugin {
         	getServer().getPluginManager().registerEvents(new BattleTagsXTeamListener(this), this);
         	getLogger().info("Hooked into xTeam " + getServer().getPluginManager().getPlugin("xTeam").getDescription().getVersion());
         }
+        if (getServer().getPluginManager().isPluginEnabled("BattleArena")) {
+        	getServer().getPluginManager().registerEvents(new BattleTagsBattleArenaListener(this), this);
+        	getLogger().info("Hooked into BattleArena " + getServer().getPluginManager().getPlugin("BattleArena").getDescription().getVersion());
+        }
         if (getServer().getPluginManager().isPluginEnabled("AncientRPG")) {
-        	getServer().getPluginManager().registerEvents(new BattleTagsAncientRPGListener(this), this);
-        	getLogger().info("Hooked into xTeam " + getServer().getPluginManager().getPlugin("AncientRPG").getDescription().getVersion());
+        	throw new AuthorNagException("AncientRPG has outdate events!");
+        	//getServer().getPluginManager().registerEvents(new BattleTagsAncientRPGListener(this), this);
+        	//getLogger().info("Hooked into AncientRPG " + getServer().getPluginManager().getPlugin("AncientRPG").getDescription().getVersion());
         }
         
         if (getServer().getPluginManager().isPluginEnabled("HealthBar")) {

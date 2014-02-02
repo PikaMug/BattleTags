@@ -24,6 +24,8 @@ public class BattleTagListener implements Listener {
     }
     
     protected void update(final Player p){
+    	if (p == null) return;
+    	
     	if (plugin.getConfig().getBoolean(listener + "." + p.getWorld().getName(), false)) {
     		new BukkitRunnable(){
     			@Override
