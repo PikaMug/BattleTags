@@ -7,7 +7,6 @@ import me.happypikachu.BattleTags.BattleTags;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
-import org.bukkit.scheduler.BukkitRunnable;
 
 /**
  * @author Brord
@@ -27,12 +26,7 @@ public class BattleTagListener implements Listener {
     	if (p == null) return;
     	
     	if (plugin.getConfig().getBoolean(listener + "." + p.getWorld().getName(), false)) {
-    		new BukkitRunnable(){
-    			@Override
-    			public void run() {
-    				plugin.update(p);
-    			}
-    		}.runTask(plugin);
+    		plugin.update(p);
 		}
     }
 

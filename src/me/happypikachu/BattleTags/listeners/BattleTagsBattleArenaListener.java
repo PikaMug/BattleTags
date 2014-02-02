@@ -3,13 +3,13 @@
  */
 package me.happypikachu.BattleTags.listeners;
 
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 
 import mc.alk.arena.events.matches.MatchFinishedEvent;
 import mc.alk.arena.events.players.ArenaPlayerEnterEvent;
 import mc.alk.arena.events.players.ArenaPlayerJoinEvent;
 import mc.alk.arena.events.players.ArenaPlayerLeaveEvent;
+import mc.alk.arena.objects.ArenaPlayer;
 import me.happypikachu.BattleTags.BattleTags;
 
 /**
@@ -38,11 +38,12 @@ public class BattleTagsBattleArenaListener extends BattleTagListener {
 	
 	@EventHandler
 	public void arenaEnter(ArenaPlayerEnterEvent e){
+		System.out.println("arenaenter update");
 		update(e.getPlayer().getPlayer());
 	}
 	
 	@EventHandler
 	public void arenaFinish(MatchFinishedEvent e){
-		update(e.getMatch().getPlayers().toArray(new Player[0])[0]);
+		update(e.getMatch().getPlayers().toArray(new ArenaPlayer[0])[0].getPlayer());
 	}
 }

@@ -7,7 +7,7 @@
 	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/WorldKill/TagAPI.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/ZZ_disabled/Towny.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/ZZ_disabled/SimpleClans.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/ZZ_disabled/war-1.8-PREVIEW.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/ZZ_battletags/war.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/mcore.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/ProtocolLib.jar">
 		<attributes>
@@ -25,5 +25,6 @@
 	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/ZZ_battletags/Factions 1-7-8.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/ZZ_battletags/xTeam.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/ZZ_battletags/AncientRPG-1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brord/Dropbox/plugin/FPSCaste server/plugins/ZZ_battletags/BattleArena.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

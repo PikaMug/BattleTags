@@ -130,4 +130,20 @@ public abstract class BattleTagsManager implements Listener{
 		// TODO Auto-generated method stub
 		
 	}
+
+	/**
+	 * Clears this player his tablist
+	 * @param p
+	 */
+	public void clear(Player p) {
+		
+	}
+	
+	/**
+	 * Removes this player from everyones tablist
+	 * @param name
+	 */
+	public void removePlayer(String name){
+		
+	}
 }

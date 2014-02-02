@@ -10,12 +10,16 @@ import me.happypikachu.BattleTags.managers.BattleTagsProtocolTabManager;
 import me.happypikachu.BattleTags.managers.BattleTagsTabManager;
 import me.happypikachu.BattleTags.managers.BattleTagsManager;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.AuthorNagException;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class BattleTags extends JavaPlugin {
+	
+	private String prefix = ChatColor.GRAY + "[" + ChatColor.DARK_RED + "BattleTags" + ChatColor.GRAY + "] " + ChatColor.RESET;
 
 	public BattleTagsManager Namemanager;
 	public BattleTagsManager Tabmanager;
@@ -73,45 +77,47 @@ public class BattleTags extends JavaPlugin {
         	String version = getServer().getPluginManager().getPlugin("Factions").getDescription().getVersion();
         	if (version.startsWith("2.")){
         		getServer().getPluginManager().registerEvents(new BattleTagsFactions2Listener(this), this);
-        		getLogger().info("Hooked into Factions " + getServer().getPluginManager().getPlugin("Factions").getDescription().getVersion());
+        		log("Hooked into Factions " + getServer().getPluginManager().getPlugin("Factions").getDescription().getVersion());
         	} else if (version.startsWith("1.6") || version.startsWith("1.7") || version.startsWith("1.8")){
         		getServer().getPluginManager().registerEvents(new BattleTagsFactions1678Listener(this), this);
-        		getLogger().info("Hooked into Factions " + getServer().getPluginManager().getPlugin("Factions").getDescription().getVersion());
+        		log("Hooked into Factions " + getServer().getPluginManager().getPlugin("Factions").getDescription().getVersion());
         	}
-        }
+		}
+			
         if (getServer().getPluginManager().isPluginEnabled("SimpleClans")) {
         	getServer().getPluginManager().registerEvents(new BattleTagsSimpleClansListener(this), this);
-        	getLogger().info("Hooked into SimpleClans " + getServer().getPluginManager().getPlugin("SimpleClans").getDescription().getVersion());
+        	log("Hooked into SimpleClans " + getServer().getPluginManager().getPlugin("SimpleClans").getDescription().getVersion());
         } else if (getServer().getPluginManager().isPluginEnabled("SimpleClans2")) {
         	getServer().getPluginManager().registerEvents(new BattleTagsSimpleClans2Listener(this), this);
-        	getLogger().info("Hooked into SimpleClans2 " + getServer().getPluginManager().getPlugin("SimpleClans2").getDescription().getVersion());
-        }
-        if (getServer().getPluginManager().isPluginEnabled("Towny")) {
+        	log("Hooked into SimpleClans2 " + getServer().getPluginManager().getPlugin("SimpleClans2").getDescription().getVersion());
+        } else if (getServer().getPluginManager().isPluginEnabled("Towny")) {
         	getServer().getPluginManager().registerEvents(new BattleTagsTownyListener(this), this);
-        	getLogger().info("Hooked into Towny " + getServer().getPluginManager().getPlugin("Towny").getDescription().getVersion());
+        	log("Hooked into Towny " + getServer().getPluginManager().getPlugin("Towny").getDescription().getVersion());
+        } else if (getServer().getPluginManager().isPluginEnabled("xTeam")) {
+        	getServer().getPluginManager().registerEvents(new BattleTagsXTeamListener(this), this);
+        	log("Hooked into xTeam " + getServer().getPluginManager().getPlugin("xTeam").getDescription().getVersion());
         }
+        
         if (getServer().getPluginManager().isPluginEnabled("War")) {
         	getServer().getPluginManager().registerEvents(new BattleTagsWarListener(this), this);
-        	getLogger().info("Hooked into War " + getServer().getPluginManager().getPlugin("War").getDescription().getVersion());
-        }
-        if (getServer().getPluginManager().isPluginEnabled("xTeam")) {
-        	getServer().getPluginManager().registerEvents(new BattleTagsXTeamListener(this), this);
-        	getLogger().info("Hooked into xTeam " + getServer().getPluginManager().getPlugin("xTeam").getDescription().getVersion());
+        	log("Hooked into War " + getServer().getPluginManager().getPlugin("War").getDescription().getVersion());
         }
         if (getServer().getPluginManager().isPluginEnabled("BattleArena")) {
         	getServer().getPluginManager().registerEvents(new BattleTagsBattleArenaListener(this), this);
-        	getLogger().info("Hooked into BattleArena " + getServer().getPluginManager().getPlugin("BattleArena").getDescription().getVersion());
-        }
-        if (getServer().getPluginManager().isPluginEnabled("AncientRPG")) {
-        	throw new AuthorNagException("AncientRPG has outdate events!");
-        	//getServer().getPluginManager().registerEvents(new BattleTagsAncientRPGListener(this), this);
-        	//getLogger().info("Hooked into AncientRPG " + getServer().getPluginManager().getPlugin("AncientRPG").getDescription().getVersion());
-        }
-        
+        	log("Hooked into BattleArena " + getServer().getPluginManager().getPlugin("BattleArena").getDescription().getVersion());
+        	log("!!! Remember to set useColoredNames to false !!!");
+        } 
         if (getServer().getPluginManager().isPluginEnabled("HealthBar")) {
         	getServer().getPluginManager().registerEvents(new HealthBar(this), this);
-        	getLogger().info("Added HealthBar " + getServer().getPluginManager().getPlugin("HealthBar").getDescription().getVersion() + " compatibility");
+        	log("Added HealthBar " + getServer().getPluginManager().getPlugin("HealthBar").getDescription().getVersion() + " compatibility");
         }
+        
+        if (getServer().getPluginManager().isPluginEnabled("AncientRPG")) {
+        	getServer().getPluginManager().registerEvents(new BattleTagsAncientRPGListener(this), this);
+        	getLogger().info("Hooked into AncientRPG " + getServer().getPluginManager().getPlugin("AncientRPG").getDescription().getVersion());
+        }
+        
+       
 	}
 
 	/**
@@ -121,26 +127,17 @@ public class BattleTags extends JavaPlugin {
 		 if (NametagsEnabled){
 		    if (getServer().getPluginManager().isPluginEnabled("TagAPI")){
 		    	getServer().getPluginManager().registerEvents(Namemanager = new BattleTagsAPIManager(this), this);
-		        getLogger().info("Activated integration with TagAPI");
+		    	log("Activated integration with TagAPI");
 		    } else if (getServer().getPluginManager().isPluginEnabled("ProtocolLib")){
 		        getServer().getPluginManager().registerEvents(Namemanager = new BattleTagsProtocolManager(this), this);
-		        getLogger().info("Activated integration with ProtocolLib for the nametags");
+		        log("Activated Nametag integration with ProtocolLib");
 		    } else {
-		        getLogger().warning("We do not yet have our own nametag manager! Please install ProtocolLib or TagAPI");
+		    	log("[WARNING] We do not yet have our own nametag manager! Please install ProtocolLib or TagAPI");
 		        getServer().getPluginManager().registerEvents(Namemanager = new BattleTagsOwnManager(this), this);
 		    }
 	    }
 	}
-
-	/**
-	 * loops over all players and updates them
-	 */
-	private void loadPlayers() {
-		Player[] players = getServer().getOnlinePlayers();
-        for (Player p : players){
-        	update(p);
-        }
-	}
+	
 
 	/**
 	 * loads our playerlist managers
@@ -149,14 +146,37 @@ public class BattleTags extends JavaPlugin {
 		if (ListEnabled){
         	if (getServer().getPluginManager().isPluginEnabled("TabAPI")){
         		getServer().getPluginManager().registerEvents(Tabmanager = new BattleTagsTabManager(this), this);
-	        	getLogger().info("Activated integration with TabAPI");
+        		log("Activated integration with TabAPI");
 		    } else if (getServer().getPluginManager().isPluginEnabled("ProtocolLib")){
 		        getServer().getPluginManager().registerEvents(Tabmanager = new BattleTagsProtocolTabManager(this), this);
-		        getLogger().info("Activated integration with ProtocolLib for the Tablist");
+		        log("Activated Tablist integration with ProtocolLib");
 		    } else {
-	        	getLogger().warning("We do not yet have our own tab manager! Please install ProtocolLib or TabAPI");
+		    	log("WARNING] We do not yet have our own tab manager! Please install ProtocolLib or TabAPI");
 	        	getServer().getPluginManager().registerEvents(Tabmanager = new BattleTagsOwnTabManager(this), this);
 	        }
+        }
+	}
+	
+	/**
+	 * Logs to the console, attempts to use colors
+	 * @param message The message to log
+	 */
+	public void log(String message) {
+		try{
+			Bukkit.getServer().getConsoleSender().sendMessage(prefix + message);
+		} catch (Exception e){
+			System.out.println(ChatColor.stripColor(prefix) + message);
+		}
+	}
+
+	/**
+	 * loops over all players and updates them
+	 */
+	private void loadPlayers() {
+		Player[] players = getServer().getOnlinePlayers();
+        for (Player p : players){
+        	Tabmanager.clear(p);
+        	update(p);
         }
 	}
 
@@ -172,12 +192,21 @@ public class BattleTags extends JavaPlugin {
 		}
 	}
 	
-	public void update(Player p){
-		if (Namemanager != null){
-			Namemanager.update(p);
-		}
+	public void update(final Player p){
 		if (Tabmanager != null){
-			Tabmanager.update(p);
+			Tabmanager.removePlayer(p.getName());
 		}
+		
+		new BukkitRunnable(){
+			@Override
+			public void run() {
+				if (Namemanager != null){
+					Namemanager.update(p);
+				}
+				if (Tabmanager != null){
+					Tabmanager.update(p);
+				}
+			}
+		}.runTask(this);
 	}
 }
