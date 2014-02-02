@@ -7,8 +7,6 @@ import me.happypikachu.BattleTags.BattleTags;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 import com.comphenix.protocol.PacketType;
@@ -17,9 +15,6 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.events.PacketListener;
-import com.comphenix.protocol.reflect.FieldAccessException;
-import com.comphenix.protocol.wrappers.WrappedDataWatcher;
-import com.comphenix.protocol.wrappers.WrappedGameProfile;
 
 /**
  * @author Brord
@@ -65,8 +60,7 @@ public class BattleTagsProtocolTabManager extends BattleTagsManager {
 	 */
 	@Override
 	public void update(Player player) {
-		// TODO Auto-generated method stub
-
+		//not needed, packets run every second
 	}
 
 }

@@ -1,44 +1,32 @@
 package me.happypikachu.BattleTags.listeners;
 
+import com.p000ison.dev.simpleclans2.api.clanplayer.ClanPlayer;
 import com.p000ison.dev.simpleclans2.api.events.ClanCreateEvent;
 import com.p000ison.dev.simpleclans2.api.events.ClanRelationBreakEvent;
 import com.p000ison.dev.simpleclans2.api.events.ClanRelationCreateEvent;
-import me.happypikachu.BattleTags.BattleTags;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 
-public class BattleTagsSimpleClans2Listener implements Listener {
-    private BattleTags plugin;
+import me.happypikachu.BattleTags.BattleTags;
+
+import org.bukkit.event.EventHandler;
+
+public class BattleTagsSimpleClans2Listener extends BattleTagListener {
+	
 	public BattleTagsSimpleClans2Listener(BattleTags plugin) {
-            this.plugin = plugin;
+		super(plugin, "SimpleClans2");
     }
 	
 	@EventHandler
-	public void onClanCreate (ClanCreateEvent event) {
-		for (Player p : Bukkit.getOnlinePlayers()) {
-			if (plugin.getConfig().getBoolean("SimpleClans2." + p.getWorld().getName())) {
-				plugin.update(p);
-			}
-		}
+	public void onClanCreate (ClanCreateEvent e) {
+		update(e.getClan().getAllMembers().toArray(new ClanPlayer[1])[0].getName());
 	}
 	
 	@EventHandler
-	public void onClanRelationBreak (ClanRelationBreakEvent event) {
-		for (Player p : Bukkit.getOnlinePlayers()) {
-			if (plugin.getConfig().getBoolean("SimpleClans2." + p.getWorld().getName())) {
-				plugin.update(p);
-			}
-		}
+	public void onClanRelationBreak (ClanRelationBreakEvent e) {
+		update(e.getClan().getAllMembers().toArray(new ClanPlayer[1])[0].getName());
 	}
 	
 	@EventHandler
-	public void onClanRelationCreate (ClanRelationCreateEvent event) {
-		for (Player p : Bukkit.getOnlinePlayers()) {
-			if (plugin.getConfig().getBoolean("SimpleClans2." + p.getWorld().getName())) {
-				plugin.update(p);
-			}
-		}
+	public void onClanRelationCreate (ClanRelationCreateEvent e) {
+		update(e.getClan().getAllMembers().toArray(new ClanPlayer[1])[0].getName());
 	}
 }

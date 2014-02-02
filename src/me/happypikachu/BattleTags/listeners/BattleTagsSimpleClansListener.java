@@ -4,41 +4,27 @@ import me.happypikachu.BattleTags.BattleTags;
 import net.sacredlabyrinth.phaed.simpleclans.api.events.SimpleClansClanCreateEvent;
 import net.sacredlabyrinth.phaed.simpleclans.api.events.SimpleClansJoinEvent;
 import net.sacredlabyrinth.phaed.simpleclans.api.events.SimpleClansLeaveEvent;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 
-public class BattleTagsSimpleClansListener implements Listener {
-    private BattleTags plugin;
+import org.bukkit.event.EventHandler;
+
+public class BattleTagsSimpleClansListener extends BattleTagListener {
+	
 	public BattleTagsSimpleClansListener(BattleTags plugin) {
-            this.plugin = plugin;
+		super(plugin, "SimpleClans");
     }
 	
 	@EventHandler
-	public void onSimpleClansClanCreateEvent (SimpleClansClanCreateEvent event) {
-		for (Player p : Bukkit.getOnlinePlayers()) {
-			if (plugin.getConfig().getBoolean("SimpleClans." + p.getWorld().getName())) {
-				plugin.update(p);
-			}
-		}
+	public void onSimpleClansClanCreateEvent (SimpleClansClanCreateEvent e) {
+		update(e.getClanPlayer().getName());
 	}
 	
 	@EventHandler
-	public void onSimpleClansJoin (SimpleClansJoinEvent event) {
-		for (Player p : Bukkit.getOnlinePlayers()) {
-			if (plugin.getConfig().getBoolean("SimpleClans." + p.getWorld().getName())) {
-				plugin.update(p);
-			}
-		}
+	public void onSimpleClansJoin (SimpleClansJoinEvent e) {
+		update(e.getClanPlayer().getName());
 	}
 	
 	@EventHandler
-	public void onSimpleClansLeave (SimpleClansLeaveEvent event) {
-		for (Player p : Bukkit.getOnlinePlayers()) {
-			if (plugin.getConfig().getBoolean("SimpleClans." + p.getWorld().getName())) {
-				plugin.update(p);
-			}
-		}
+	public void onSimpleClansLeave (SimpleClansLeaveEvent e) {
+		update(e.getClanPlayer().getName());
 	}
 }

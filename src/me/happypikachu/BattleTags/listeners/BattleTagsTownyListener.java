@@ -5,37 +5,21 @@ import com.palmergames.bukkit.towny.event.TownRemoveResidentEvent;
 
 import me.happypikachu.BattleTags.BattleTags;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 
-public class BattleTagsTownyListener implements Listener {
-    private BattleTags plugin;
-    
-    private Runnable updateTask = new Runnable() {
-		@Override
-		public void run() {
-			for (Player p : Bukkit.getOnlinePlayers()) {
-				if (plugin.getConfig().getBoolean("Towny." + p.getWorld().getName(), false)) {
-					plugin.update(p);
-				}
-			}
-		}
-	};
+public class BattleTagsTownyListener extends BattleTagListener {
     
 	public BattleTagsTownyListener(BattleTags plugin) {
-            this.plugin = plugin;
+		super(plugin, "Towny");
     }
 	
-	
 	@EventHandler
-	public void onTownAddResident (TownAddResidentEvent event) {
-		plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, updateTask);
+	public void onTownAddResident (TownAddResidentEvent e) {
+		update(e.getResident().getName());
 	}
 	
 	@EventHandler
-	public void onTownRemoveResident (TownRemoveResidentEvent event) {
-		plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, updateTask);
+	public void onTownRemoveResident (TownRemoveResidentEvent e) {
+		update(e.getResident().getName());
 	}
 }

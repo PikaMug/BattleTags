@@ -82,8 +82,7 @@ public class BattleTags extends JavaPlugin {
         if (getServer().getPluginManager().isPluginEnabled("SimpleClans")) {
         	getServer().getPluginManager().registerEvents(new BattleTagsSimpleClansListener(this), this);
         	getLogger().info("Hooked into SimpleClans " + getServer().getPluginManager().getPlugin("SimpleClans").getDescription().getVersion());
-        }
-        if (getServer().getPluginManager().isPluginEnabled("SimpleClans2")) {
+        } else if (getServer().getPluginManager().isPluginEnabled("SimpleClans2")) {
         	getServer().getPluginManager().registerEvents(new BattleTagsSimpleClans2Listener(this), this);
         	getLogger().info("Hooked into SimpleClans2 " + getServer().getPluginManager().getPlugin("SimpleClans2").getDescription().getVersion());
         }
@@ -97,7 +96,11 @@ public class BattleTags extends JavaPlugin {
         }
         if (getServer().getPluginManager().isPluginEnabled("xTeam")) {
         	getServer().getPluginManager().registerEvents(new BattleTagsXTeamListener(this), this);
-        	getLogger().info("Added xTeam " + getServer().getPluginManager().getPlugin("xTeam").getDescription().getVersion() + " compatibility");
+        	getLogger().info("Hooked into xTeam " + getServer().getPluginManager().getPlugin("xTeam").getDescription().getVersion());
+        }
+        if (getServer().getPluginManager().isPluginEnabled("AncientRPG")) {
+        	getServer().getPluginManager().registerEvents(new BattleTagsAncientRPGListener(this), this);
+        	getLogger().info("Hooked into xTeam " + getServer().getPluginManager().getPlugin("AncientRPG").getDescription().getVersion());
         }
         
         if (getServer().getPluginManager().isPluginEnabled("HealthBar")) {
