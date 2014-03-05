@@ -1,6 +1,6 @@
 group: false
 nametags: true
-playerlist: true
+playerlist: false
 
 Factions:
 SimpleClans:
