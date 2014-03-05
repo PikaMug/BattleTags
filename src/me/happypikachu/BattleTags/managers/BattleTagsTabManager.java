@@ -49,9 +49,6 @@ public class BattleTagsTabManager extends BattleTagsManager implements Listener 
 		}.runTask(plugin);
 	}
 	
-	/* (non-Javadoc)
-	 * @see me.happypikachu.BattleTags.managers.BattleTagsManager#clear(org.bukkit.entity.Player)
-	 */
 	@Override
 	public void clear(Player p) {
 		TabAPI.clearTab(p);

@@ -27,5 +27,6 @@ public class BattleTagsFactions2Listener extends BattleTagListener {
     @EventHandler
 	public void onFactionRelation (FactionsEventRelationChange e) {
     	update(e.getUSender().getPlayer());
+    	update(e.getOtherFaction().getOnlinePlayers().get(0));
 	}
 }

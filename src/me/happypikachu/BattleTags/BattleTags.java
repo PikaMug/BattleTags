@@ -29,6 +29,23 @@ public class BattleTags extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {
+		load();
+        getCommand("battletags").setExecutor(new BattleTagsCommandExecutor(this));
+	}
+	
+	public void load(){
+		loadConfig();
+        loadCore();
+	}
+	
+	private void loadCore(){
+		loadDependencies();
+        loadNameTags(); 
+        loadPlayerList();
+        loadPlayers();
+	}
+	
+	private void loadConfig(){
 		saveDefaultConfig();
 		updateConfig();
         getConfig().options().copyDefaults(true);
@@ -36,13 +53,6 @@ public class BattleTags extends JavaPlugin {
         
         NametagsEnabled = getConfig().getBoolean("nametags", true);
         ListEnabled = getConfig().getBoolean("playerlist", true);
-        
-        getCommand("battletags").setExecutor(new BattleTagsCommandExecutor(this));
-        
-        loadDependencies();
-        loadNameTags(); 
-        loadPlayerList();
-        loadPlayers();
 	}
 	
 	/**
@@ -147,6 +157,7 @@ public class BattleTags extends JavaPlugin {
         	if (getServer().getPluginManager().isPluginEnabled("TabAPI")){
         		getServer().getPluginManager().registerEvents(Tabmanager = new BattleTagsTabManager(this), this);
         		log("Activated integration with TabAPI");
+        		log(ChatColor.DARK_RED + "Warning! TabAPI is outdate and tends to disfunction.");
 		    } else if (getServer().getPluginManager().isPluginEnabled("ProtocolLib")){
 		        getServer().getPluginManager().registerEvents(Tabmanager = new BattleTagsProtocolTabManager(this), this);
 		        log("Activated Tablist integration with ProtocolLib");
@@ -174,10 +185,13 @@ public class BattleTags extends JavaPlugin {
 	 */
 	private void loadPlayers() {
 		Player[] players = getServer().getOnlinePlayers();
-        for (Player p : players){
-        	Tabmanager.clear(p);
-        	update(p);
-        }
+        
+		for (Player p : players){
+			if (ListEnabled){
+				Tabmanager.clear(p);
+			}
+	        update(p);
+	    }
 	}
 
 	@Override
@@ -197,6 +211,7 @@ public class BattleTags extends JavaPlugin {
 			Tabmanager.removePlayer(p.getName());
 		}
 		
+		//delay for events to finish
 		new BukkitRunnable(){
 			@Override
 			public void run() {

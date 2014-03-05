@@ -56,6 +56,8 @@ public abstract class BattleTagsManager implements Listener{
 	 */
 	public String getTag(String player, String seenPlayer){
 		String tag = seenPlayer;
+		if (Bukkit.getPlayer(player)== null || Bukkit.getPlayer(seenPlayer) == null) return tag;
+		
 		if (plugin.getServer().getPluginManager().isPluginEnabled("Factions")){
 			String worldName = Bukkit.getPlayer(player).getWorld().getName();
 			if (plugin.getConfig().getBoolean("Factions." + worldName)){
@@ -122,6 +124,10 @@ public abstract class BattleTagsManager implements Listener{
 	
 	public void update(String player){
 		update(Bukkit.getServer().getPlayer(player));
+	}
+	
+	public BattleTags getPL() {
+		return plugin;
 	}
 	
 	public abstract void update(Player player);

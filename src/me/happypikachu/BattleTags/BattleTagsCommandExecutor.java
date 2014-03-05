@@ -23,7 +23,8 @@ public class BattleTagsCommandExecutor implements CommandExecutor {
 						sender.sendMessage(ChatColor.RED + "You do not have permission to perform this command.");
 					} else {
 						try {
-                			plugin.reloadConfig();
+							plugin.reloadConfig();
+                			plugin.load();
                 			sender.sendMessage(ChatColor.GREEN + "Successfully reloaded config.");
                 		} catch (Exception ex) {
                 			sender.sendMessage(ChatColor.RED + "An error occurred: Failed to reload config.");

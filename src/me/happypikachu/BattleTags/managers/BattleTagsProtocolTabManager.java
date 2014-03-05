@@ -45,16 +45,20 @@ public class BattleTagsProtocolTabManager extends BattleTagsManager {
 	    ProtocolLibrary.getProtocolManager().addPacketListener(listener = new PacketAdapter(PacketAdapter.params(plugin, PacketType.Play.Server.PLAYER_INFO)) {
 	       @Override
 	       public void onPacketSending(PacketEvent event) {
+	    	   if (event.isCancelled()) return;
 	    	   
-	         
 	    	   final PacketContainer packetContainer = event.getPacket();
 	           final String seen = ChatColor.stripColor(packetContainer.getStrings().read(0));
 	        	  
-	           Player seenPlayer = Bukkit.getServer().getPlayer(seen);
-	           if (seenPlayer == null) return;
-	        	  
-	           System.out.println(event.getPlayer().getName() + " Received info packet about: " + seen + " -> tag: " + getTag(event.getPlayer().getName(), seen));
-	           packetContainer.getStrings().write(0, getTag(event.getPlayer().getName(), seen));
+	           //Player seenPlayer = Bukkit.getServer().getPlayer(seen);
+	           //if (seenPlayer == null) return;
+	        	
+	           String tag = getTag(event.getPlayer().getName(), seen);
+	           
+	           packetContainer.getStrings().write(0, tag);
+	           event.setPacket(packetContainer);
+	           
+	           getPL().log(event.getPlayer().getName() + " received info packet about: " + seen + " -> tag: " + tag);
 	       }
 	   });
 	}
@@ -64,19 +68,19 @@ public class BattleTagsProtocolTabManager extends BattleTagsManager {
 		removePlayer(e.getPlayer().getName());
 	}
 	
-	public void removePlayer(String name){
+	public void removePlayer(String seenName){
 		PacketContainer pc;
 		Player[] players = plugin.getServer().getOnlinePlayers();
 		
 		for (Player pr : players){
-			if (name.equals(pr.getName())) continue;
+			if (seenName.equals(pr.getName())) continue;
 			
 			pc = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.PLAYER_INFO);
 			pc.getBooleans().write(0, false);
-			pc.getStrings().write(0, getTag(pr.getName(), name));
+			pc.getStrings().write(0, getTag(pr.getName(), seenName));
 			pc.getIntegers().write(0, 0);
 			
-			System.out.println("Clearing name " + getTag(pr.getName(), name) + " for " + pr.getName());
+			//System.out.println("Clearing name " + getTag(pr.getName(), name) + " for " + pr.getName());
 			try {
 				ProtocolLibrary.getProtocolManager().sendServerPacket(pr, pc);
 			} catch (InvocationTargetException ex) {
@@ -85,20 +89,18 @@ public class BattleTagsProtocolTabManager extends BattleTagsManager {
 		}
 	}
 	
-	/* (non-Javadoc)
-	 * @see me.happypikachu.BattleTags.managers.BattleTagsManager#clear(org.bukkit.entity.Player)
-	 */
 	@Override
 	public void clear(Player p) {
 		PacketContainer pc;
 		Player[] players = plugin.getServer().getOnlinePlayers();
-		
+		System.out.println("Clearing player " + p.getName());
 		for (Player pr : players){
+			System.out.println("- removing " + getTag(p.getName(), pr.getName()));
 			if (pr == p) continue;
 			
 			pc = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.PLAYER_INFO);
 			pc.getBooleans().write(0, false);
-			pc.getStrings().write(0, getTag(pr.getName(), p.getName()));
+			pc.getStrings().write(0, getTag(p.getName(), pr.getName()));
 			pc.getIntegers().write(0, 0);
 			
 			try {
