@@ -14,8 +14,8 @@ import org.bukkit.event.Listener;
  */
 public class BattleTagListener implements Listener {
 	
-	private BattleTags plugin;
-	private String listener;
+	protected BattleTags plugin;
+	protected String listener;
 	
     public BattleTagListener(BattleTags plugin, String listener) {
             this.plugin = plugin;

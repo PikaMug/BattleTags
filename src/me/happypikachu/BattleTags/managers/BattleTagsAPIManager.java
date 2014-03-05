@@ -5,7 +5,7 @@ import me.happypikachu.BattleTags.BattleTags;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.kitteh.tag.PlayerReceiveNameTagEvent;
+import org.kitteh.tag.AsyncPlayerReceiveNameTagEvent;
 import org.kitteh.tag.TagAPI;
 
 public class BattleTagsAPIManager extends BattleTagsManager implements Listener {
@@ -13,8 +13,13 @@ public class BattleTagsAPIManager extends BattleTagsManager implements Listener 
             super(plugin);
     }
     
+//	@EventHandler
+//	public void onNameTag(PlayerReceiveNameTagEvent e) {
+//		e.setTag(getTag(e.getPlayer(), e.getNamedPlayer()));
+//	}
+    
 	@EventHandler
-	public void onNameTag(PlayerReceiveNameTagEvent e) {
+	public void onNameTag(AsyncPlayerReceiveNameTagEvent e) {
 		e.setTag(getTag(e.getPlayer(), e.getNamedPlayer()));
 	}
 

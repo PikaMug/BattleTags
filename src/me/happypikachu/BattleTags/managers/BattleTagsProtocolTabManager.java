@@ -47,14 +47,14 @@ public class BattleTagsProtocolTabManager extends BattleTagsManager {
 	       public void onPacketSending(PacketEvent event) {
 	    	   
 	         
-	          final PacketContainer packetContainer = event.getPacket();
-	        	  final String seen = ChatColor.stripColor(packetContainer.getStrings().read(0));
+	    	   final PacketContainer packetContainer = event.getPacket();
+	           final String seen = ChatColor.stripColor(packetContainer.getStrings().read(0));
 	        	  
-	        	  Player seenPlayer = Bukkit.getServer().getPlayer(seen);
-	        	  if (seenPlayer == null) return;
+	           Player seenPlayer = Bukkit.getServer().getPlayer(seen);
+	           if (seenPlayer == null) return;
 	        	  
-	        	  //System.out.println("Received info packet: " + seen + " " + event.getPlayer().getName() + " " + getTag(event.getPlayer().getName(), seen));
-	        	  packetContainer.getStrings().write(0, getTag(event.getPlayer().getName(), seen));
+	           System.out.println(event.getPlayer().getName() + " Received info packet about: " + seen + " -> tag: " + getTag(event.getPlayer().getName(), seen));
+	           packetContainer.getStrings().write(0, getTag(event.getPlayer().getName(), seen));
 	       }
 	   });
 	}
@@ -69,11 +69,14 @@ public class BattleTagsProtocolTabManager extends BattleTagsManager {
 		Player[] players = plugin.getServer().getOnlinePlayers();
 		
 		for (Player pr : players){
+			if (name.equals(pr.getName())) continue;
+			
 			pc = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.PLAYER_INFO);
 			pc.getBooleans().write(0, false);
 			pc.getStrings().write(0, getTag(pr.getName(), name));
 			pc.getIntegers().write(0, 0);
 			
+			System.out.println("Clearing name " + getTag(pr.getName(), name) + " for " + pr.getName());
 			try {
 				ProtocolLibrary.getProtocolManager().sendServerPacket(pr, pc);
 			} catch (InvocationTargetException ex) {
@@ -91,9 +94,11 @@ public class BattleTagsProtocolTabManager extends BattleTagsManager {
 		Player[] players = plugin.getServer().getOnlinePlayers();
 		
 		for (Player pr : players){
+			if (pr == p) continue;
+			
 			pc = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.PLAYER_INFO);
 			pc.getBooleans().write(0, false);
-			pc.getStrings().write(0, getTag(p.getName(), pr.getName()));
+			pc.getStrings().write(0, getTag(pr.getName(), p.getName()));
 			pc.getIntegers().write(0, 0);
 			
 			try {

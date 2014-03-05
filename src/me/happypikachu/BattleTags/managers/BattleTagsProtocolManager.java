@@ -75,7 +75,11 @@ public class BattleTagsProtocolManager extends BattleTagsManager{
 			for (Player p : Bukkit.getServer().getOnlinePlayers()){
 				if (p.getWorld().getName().equals(player.getWorld().getName())){
 					player.hidePlayer(p);
+					p.hidePlayer(player);
 					player.showPlayer(p);
+					p.showPlayer(player);
+					
+					System.out.println("");
 				}
 			}
 		}
