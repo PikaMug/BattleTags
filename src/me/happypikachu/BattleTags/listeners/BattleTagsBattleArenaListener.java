@@ -38,7 +38,6 @@ public class BattleTagsBattleArenaListener extends BattleTagListener {
 	
 	@EventHandler
 	public void arenaEnter(ArenaPlayerEnterEvent e){
-		System.out.println("arenaenter update");
 		update(e.getPlayer().getPlayer());
 	}
 	

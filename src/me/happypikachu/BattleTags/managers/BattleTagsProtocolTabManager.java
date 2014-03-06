@@ -62,12 +62,13 @@ public class BattleTagsProtocolTabManager extends BattleTagsManager {
 	       }
 	   });
 	}
-	
+
 	@EventHandler
 	public void leave(PlayerQuitEvent e){
 		removePlayer(e.getPlayer().getName());
 	}
 	
+	@Override
 	public void removePlayer(String seenName){
 		PacketContainer pc;
 		Player[] players = plugin.getServer().getOnlinePlayers();
@@ -93,9 +94,7 @@ public class BattleTagsProtocolTabManager extends BattleTagsManager {
 	public void clear(Player p) {
 		PacketContainer pc;
 		Player[] players = plugin.getServer().getOnlinePlayers();
-		System.out.println("Clearing player " + p.getName());
 		for (Player pr : players){
-			System.out.println("- removing " + getTag(p.getName(), pr.getName()));
 			if (pr == p) continue;
 			
 			pc = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.PLAYER_INFO);

@@ -2,7 +2,6 @@ group: false
 nametags: true
 playerlist: false
 
-Factions:
 SimpleClans:
   ally: b
   member: '3'
@@ -20,3 +19,9 @@ xTeam:
   ally: b
   enemy: c
   neutral: f
+AncientRPG:
+  guild: b
+  party: 3
+BattleArena:
+  teammate: 3
+  enemy: c
