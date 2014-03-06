@@ -49,15 +49,12 @@ public class BattleTagsProtocolTabManager extends BattleTagsManager {
 	    	   final PacketContainer packetContainer = event.getPacket();
 	           final String seen = ChatColor.stripColor(packetContainer.getStrings().read(0));
 	        	  
-	           //Player seenPlayer = Bukkit.getServer().getPlayer(seen);
-	           //if (seenPlayer == null) return;
-	        	
 	           String tag = getTag(event.getPlayer().getName(), seen);
 	           
 	           packetContainer.getStrings().write(0, tag);
 	           event.setPacket(packetContainer);
 	           
-	           getPL().log(event.getPlayer().getName() + " received info packet about: " + seen + " -> tag: " + tag);
+	           //getPL().log(event.getPlayer().getName() + " received info packet about: " + seen + " -> tag: " + tag);
 	       }
 	   });
 	}

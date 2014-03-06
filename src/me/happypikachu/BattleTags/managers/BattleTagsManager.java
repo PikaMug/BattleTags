@@ -161,7 +161,7 @@ public abstract class BattleTagsManager implements Listener{
 	 * @return
 	 */
 	protected BattleTags getPL() {
-		return null;
+		return plugin;
 	}
 
 	/**

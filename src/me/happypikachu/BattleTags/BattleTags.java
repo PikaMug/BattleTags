@@ -34,15 +34,11 @@ public class BattleTags extends JavaPlugin {
 	}
 	
 	public void load(){
+		Namemanager = null;
+		Tabmanager = null;
+		
 		loadConfig();
         loadCore();
-	}
-	
-	private void loadCore(){
-		loadDependencies();
-        loadNameTags(); 
-        loadPlayerList();
-        loadPlayers();
 	}
 	
 	private void loadConfig(){
@@ -53,6 +49,13 @@ public class BattleTags extends JavaPlugin {
         
         NametagsEnabled = getConfig().getBoolean("nametags", true);
         ListEnabled = getConfig().getBoolean("playerlist", true);
+	}
+	
+	private void loadCore(){
+		loadDependencies();
+        loadNameTags(); 
+        loadPlayerList();
+        loadPlayers();
 	}
 	
 	/**
