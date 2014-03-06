@@ -1,17 +1,12 @@
 package me.happypikachu.BattleTags.managers;
 
 import com.ancientshores.AncientRPG.AncientRPG;
-import com.ancientshores.AncientRPG.AncientRPGInfo;
 import com.p000ison.dev.simpleclans2.api.SCCore;
 import com.palmergames.bukkit.towny.utils.CombatUtil;
 import com.tommytony.war.Team;
 
 import mc.alk.arena.BattleArena;
-import mc.alk.arena.competition.match.ArenaMatch;
-import mc.alk.arena.controllers.PlayerStoreController;
 import mc.alk.arena.controllers.TeamController;
-import mc.alk.arena.objects.ArenaPlayer;
-import mc.alk.arena.objects.scoreboard.base.ArenaBukkitScoreboard;
 import me.happypikachu.BattleTags.BattleTags;
 import me.happypikachu.BattleTags.events.BattleTagsCustomTagEvent;
 import me.happypikachu.BattleTags.factionsconvertor.Factions1678convertor;

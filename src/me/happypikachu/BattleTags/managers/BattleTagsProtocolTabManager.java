@@ -7,7 +7,6 @@ import java.lang.reflect.InvocationTargetException;
 
 import me.happypikachu.BattleTags.BattleTags;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
