@@ -1,7 +1,7 @@
 package me.happypikachu.BattleTags.factionsconvertor;
 
 import com.massivecraft.factions.entity.Faction;
-import com.massivecraft.factions.entity.UPlayer;
+import com.massivecraft.factions.entity.MPlayer;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -9,8 +9,8 @@ public class Factions20convertor extends FactionsConvertor {
 
 	@Override
 	public ChatColor getRelColor(Player player, Player namedPlayer) {
-		Faction upFaction = UPlayer.get(player).getFaction();
-		Faction up2Faction = UPlayer.get(namedPlayer).getFaction();
+		Faction upFaction = MPlayer.get(player).getFaction();
+		Faction up2Faction = MPlayer.get(namedPlayer).getFaction();
 		ChatColor color = ChatColor.WHITE;
 		
 		try {

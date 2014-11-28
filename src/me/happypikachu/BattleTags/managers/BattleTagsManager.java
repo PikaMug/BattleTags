@@ -7,12 +7,13 @@ import com.tommytony.war.Team;
 
 import mc.alk.arena.BattleArena;
 import mc.alk.arena.controllers.TeamController;
+
 import me.happypikachu.BattleTags.BattleTags;
 import me.happypikachu.BattleTags.events.BattleTagsCustomTagEvent;
 import me.happypikachu.BattleTags.factionsconvertor.Factions1678convertor;
 import me.happypikachu.BattleTags.factionsconvertor.Factions20convertor;
 import me.happypikachu.BattleTags.factionsconvertor.FactionsConvertor;
-import me.protocos.xteam.xTeam;
+import me.protocos.xteam.XTeam;
 import net.sacredlabyrinth.phaed.simpleclans.Clan;
 import net.sacredlabyrinth.phaed.simpleclans.SimpleClans;
 
@@ -94,11 +95,12 @@ public abstract class BattleTagsManager implements Listener{
 				tag =  ChatColor.getByChar(plugin.getConfig().getString("Towny.enemy"));
 			}
 		} else if (plugin.getServer().getPluginManager().isPluginEnabled("xTeam")) { //xTeam by protocos
+			XTeam xteam= (XTeam) plugin.getServer().getPluginManager().getPlugin("xTeam");
 			if (plugin.getConfig().getBoolean("xTeam." + p.getWorld().getName())) {
-				if (xTeam.getInstance().getPlayerManager().getPlayer(player) != null) {
-					if (!xTeam.getInstance().getPlayerManager().getPlayer(player).hasTeam()){
+				if (xteam.getPlayerFactory().getPlayer(player) != null) {
+					if (!xteam.getPlayerFactory().getPlayer(player).hasTeam()){
 						tag = ChatColor.getByChar(plugin.getConfig().getString("xTeam.neutral"));
-					} else if (xTeam.getInstance().getPlayerManager().getPlayer(player).getTeammates().contains(xTeam.getInstance().getPlayerManager().getPlayer(seenPlayer))){
+					} else if (xteam.getPlayerFactory().getPlayer(player).getTeammates().contains(xteam.getPlayerFactory().getPlayer(seenPlayer))){
 						tag = ChatColor.getByChar(plugin.getConfig().getString("xTeam.ally"));
 					} else {
 						tag = ChatColor.getByChar(plugin.getConfig().getString("xTeam.enemy"));
@@ -106,12 +108,12 @@ public abstract class BattleTagsManager implements Listener{
 				}
 			}
 		} else if (plugin.getServer().getPluginManager().isPluginEnabled("AncientRPG")) { //AncientRPG by MysticCity
-			if (AncientRPG.getApiManager().getPlayerGuild(player) != null){
-				if (AncientRPG.getApiManager().getPlayerGuild(player).gMember.containsKey(seenPlayer)){
+			if (AncientRPG.getApiManager().getPlayerGuild(p.getUniqueId()) != null){
+				if (AncientRPG.getApiManager().getPlayerGuild(p.getUniqueId()).gMember.containsKey(seenPlayer)){
 					tag = ChatColor.getByChar(plugin.getConfig().getString("AncientRPG.guild"));
 				}
-			} else if (AncientRPG.getApiManager().getPlayerParty(p) != null){
-				if (AncientRPG.getApiManager().getPlayerParty(p).Member.contains(seen)){
+			} else if (AncientRPG.getApiManager().getPlayerParty(p.getUniqueId()) != null){
+				if (AncientRPG.getApiManager().getPlayerParty(p.getUniqueId()).containsUUID(seen.getUniqueId())){
 					tag = ChatColor.getByChar(plugin.getConfig().getString("AncientRPG.guild"));
 				}
 			}

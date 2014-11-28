@@ -45,6 +45,7 @@ public class BattleTagsProtocolTabManager extends BattleTagsManager {
 	       @Override
 	       public void onPacketSending(PacketEvent event) {
 	    	   if (event.isCancelled()) return;
+	    	   //event.setCancelled(true);
 	    	   
 	    	   final PacketContainer packetContainer = event.getPacket();
 	           final String seen = ChatColor.stripColor(packetContainer.getStrings().read(0));
@@ -53,7 +54,6 @@ public class BattleTagsProtocolTabManager extends BattleTagsManager {
 	           
 	           packetContainer.getStrings().write(0, tag);
 	           event.setPacket(packetContainer);
-	           
 	           //getPL().log(event.getPlayer().getName() + " received info packet about: " + seen + " -> tag: " + tag);
 	       }
 	   });
@@ -70,14 +70,13 @@ public class BattleTagsProtocolTabManager extends BattleTagsManager {
 		Player[] players = plugin.getServer().getOnlinePlayers();
 		
 		for (Player pr : players){
-			if (seenName.equals(pr.getName())) continue;
+			//if (seenName.equals(pr.getName())) continue;
 			
 			pc = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.PLAYER_INFO);
 			pc.getBooleans().write(0, false);
 			pc.getStrings().write(0, getTag(pr.getName(), seenName));
 			pc.getIntegers().write(0, 0);
 			
-			//System.out.println("Clearing name " + getTag(pr.getName(), name) + " for " + pr.getName());
 			try {
 				ProtocolLibrary.getProtocolManager().sendServerPacket(pr, pc);
 			} catch (InvocationTargetException ex) {
@@ -88,10 +87,12 @@ public class BattleTagsProtocolTabManager extends BattleTagsManager {
 	
 	@Override
 	public void clear(Player p) {
+		System.out.println("clear " + p.getName());
 		PacketContainer pc;
 		Player[] players = plugin.getServer().getOnlinePlayers();
 		for (Player pr : players){
-			if (pr == p) continue;
+			//if (pr == p) continue;
+			getPL().log("clear " + getTag(p.getName(), pr.getName()));
 			
 			pc = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.PLAYER_INFO);
 			pc.getBooleans().write(0, false);

@@ -129,8 +129,6 @@ public class BattleTags extends JavaPlugin {
         	getServer().getPluginManager().registerEvents(new BattleTagsAncientRPGListener(this), this);
         	getLogger().info("Hooked into AncientRPG " + getServer().getPluginManager().getPlugin("AncientRPG").getDescription().getVersion());
         }
-        
-       
 	}
 
 	/**
@@ -150,7 +148,6 @@ public class BattleTags extends JavaPlugin {
 		    }
 	    }
 	}
-	
 
 	/**
 	 * loads our playerlist managers

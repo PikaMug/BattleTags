@@ -73,13 +73,11 @@ public class BattleTagsProtocolManager extends BattleTagsManager{
 	public void update(Player player) {
 		if (player != null){
 			for (Player p : Bukkit.getServer().getOnlinePlayers()){
-				if (p.getWorld().getName().equals(player.getWorld().getName())){
+				if (p.getWorld().getName().equals(player.getWorld().getName()) && p.canSee(player)){
 					player.hidePlayer(p);
 					p.hidePlayer(player);
 					player.showPlayer(p);
 					p.showPlayer(player);
-					
-					System.out.println("");
 				}
 			}
 		}

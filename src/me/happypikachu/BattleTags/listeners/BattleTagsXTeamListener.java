@@ -10,8 +10,8 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 import me.happypikachu.BattleTags.BattleTags;
-import me.protocos.xteam.api.event.TeamCreateEvent;
-import me.protocos.xteam.api.event.TeamDisbandEvent;
+import me.protocos.xteam.event.TeamCreateEvent;
+import me.protocos.xteam.event.TeamDisbandEvent;
 
 /**
  * @author Brord

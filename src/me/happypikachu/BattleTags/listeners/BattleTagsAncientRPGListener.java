@@ -5,6 +5,7 @@ package me.happypikachu.BattleTags.listeners;
 
 import me.happypikachu.BattleTags.BattleTags;
 
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 
 import com.ancientshores.AncientRPG.API.AncientRPGPartyDisbandedEvent;
@@ -23,12 +24,12 @@ public class BattleTagsAncientRPGListener extends BattleTagListener {
     
     @EventHandler
     public void partyLeave(AncientRPGPartyJoinEvent e){
-    	update(e.getPlayer());
+    	update(Bukkit.getPlayer(e.getUUID()));
     }
     
     @EventHandler
     public void partyLeave(AncientRPGPartyLeaveEvent e){
-    	update(e.getPlayer());
+    	update(Bukkit.getPlayer(e.getUUID()));
     }
     
     @EventHandler
