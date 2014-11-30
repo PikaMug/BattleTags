@@ -70,7 +70,7 @@ public class BattleTagsProtocolTabManager extends BattleTagsManager {
 		Player[] players = plugin.getServer().getOnlinePlayers();
 		
 		for (Player pr : players){
-			//if (seenName.equals(pr.getName())) continue;
+			if (seenName.equals(pr.getName())) continue;
 			
 			pc = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.PLAYER_INFO);
 			pc.getBooleans().write(0, false);
@@ -87,13 +87,9 @@ public class BattleTagsProtocolTabManager extends BattleTagsManager {
 	
 	@Override
 	public void clear(Player p) {
-		System.out.println("clear " + p.getName());
 		PacketContainer pc;
 		Player[] players = plugin.getServer().getOnlinePlayers();
 		for (Player pr : players){
-			//if (pr == p) continue;
-			getPL().log("clear " + getTag(p.getName(), pr.getName()));
-			
 			pc = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.PLAYER_INFO);
 			pc.getBooleans().write(0, false);
 			pc.getStrings().write(0, getTag(p.getName(), pr.getName()));

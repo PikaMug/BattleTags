@@ -8,15 +8,14 @@ import com.massivecraft.factions.event.EventFactionsDisband;
 import com.massivecraft.factions.event.EventFactionsMembershipChange;
 import com.massivecraft.factions.event.EventFactionsRelationChange;
 
-public class BattleTagsFactions2Listener extends BattleTagListener {
+public class BattleTagsFactions27Listener extends BattleTagListener {
 	
-    public BattleTagsFactions2Listener(BattleTags plugin) {
+    public BattleTagsFactions27Listener(BattleTags plugin) {
     	super(plugin, "Factions");
     }
 	
     @EventHandler
 	public void onFPlayerJoin (EventFactionsMembershipChange e) {
-    	System.out.println(e.getMPlayer().getName() + " " + e.getMSender().getName());
     	update(e.getMPlayer().getPlayer());
 	}
 	

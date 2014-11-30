@@ -86,12 +86,16 @@ public class BattleTags extends JavaPlugin {
 	 * Loads all our dependencies with the listeners
 	 */
 	private void loadDependencies() {
+		double v;
 		if (getServer().getPluginManager().isPluginEnabled("Factions")) {
-        	String version = getServer().getPluginManager().getPlugin("Factions").getDescription().getVersion();
-        	if (version.startsWith("2.")){
-        		getServer().getPluginManager().registerEvents(new BattleTagsFactions2Listener(this), this);
+			v = Double.parseDouble(getServer().getPluginManager().getPlugin("Factions").getDescription().getVersion());
+        	if (v > 2 && v < 2.7){
+        		getServer().getPluginManager().registerEvents(new BattleTagsFactions24Listener(this), this);
         		log("Hooked into Factions " + getServer().getPluginManager().getPlugin("Factions").getDescription().getVersion());
-        	} else if (version.startsWith("1.6") || version.startsWith("1.7") || version.startsWith("1.8")){
+        	} else if (v >= 2.7 ){
+        		getServer().getPluginManager().registerEvents(new BattleTagsFactions27Listener(this), this);
+        		log("Hooked into Factions " + getServer().getPluginManager().getPlugin("Factions").getDescription().getVersion());
+        	} else if (v >= 1.6 && v < 1.9){
         		getServer().getPluginManager().registerEvents(new BattleTagsFactions1678Listener(this), this);
         		log("Hooked into Factions " + getServer().getPluginManager().getPlugin("Factions").getDescription().getVersion());
         	}
@@ -126,8 +130,8 @@ public class BattleTags extends JavaPlugin {
         }
         
         if (getServer().getPluginManager().isPluginEnabled("AncientRPG")) {
-        	getServer().getPluginManager().registerEvents(new BattleTagsAncientRPGListener(this), this);
-        	getLogger().info("Hooked into AncientRPG " + getServer().getPluginManager().getPlugin("AncientRPG").getDescription().getVersion());
+        	getServer().getPluginManager().registerEvents(new BattleTagsAncientRPGUUIDListener(this), this);
+            getLogger().info("Hooked into AncientRPG " + getServer().getPluginManager().getPlugin("AncientRPG").getDescription().getVersion());
         }
 	}
 
