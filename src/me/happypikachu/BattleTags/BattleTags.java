@@ -9,6 +9,7 @@ import me.happypikachu.BattleTags.managers.BattleTagsProtocolManager;
 import me.happypikachu.BattleTags.managers.BattleTagsProtocolTabManager;
 import me.happypikachu.BattleTags.managers.BattleTagsTabManager;
 import me.happypikachu.BattleTags.managers.BattleTagsManager;
+import me.happypikachu.BattleTags.managers.ListenerManager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -21,6 +22,8 @@ public class BattleTags extends JavaPlugin {
 	
 	private String prefix = ChatColor.GRAY + "[" + ChatColor.DARK_RED + "BattleTags" + ChatColor.GRAY + "] " + ChatColor.RESET;
 
+	private ListenerManager listeners = new ListenerManager();
+	
 	public BattleTagsManager Namemanager;
 	public BattleTagsManager Tabmanager;
 	
@@ -86,53 +89,31 @@ public class BattleTags extends JavaPlugin {
 	 * Loads all our dependencies with the listeners
 	 */
 	private void loadDependencies() {
-		double v;
-		if (getServer().getPluginManager().isPluginEnabled("Factions")) {
-			v = Double.parseDouble(getServer().getPluginManager().getPlugin("Factions").getDescription().getVersion());
-        	if (v > 2 && v < 2.7){
-        		getServer().getPluginManager().registerEvents(new BattleTagsFactions24Listener(this), this);
-        		log("Hooked into Factions " + getServer().getPluginManager().getPlugin("Factions").getDescription().getVersion());
-        	} else if (v >= 2.7 ){
-        		getServer().getPluginManager().registerEvents(new BattleTagsFactions27Listener(this), this);
-        		log("Hooked into Factions " + getServer().getPluginManager().getPlugin("Factions").getDescription().getVersion());
-        	} else if (v >= 1.6 && v < 1.9){
-        		getServer().getPluginManager().registerEvents(new BattleTagsFactions1678Listener(this), this);
-        		log("Hooked into Factions " + getServer().getPluginManager().getPlugin("Factions").getDescription().getVersion());
-        	}
+		Listener l;
+		for (String p : getDescription().getSoftDepend()){
+			l = Listener.getPluginListener(p);
+			if (l == null) {
+				//log(ChatColor.DARK_RED + "WARNING! Found a softdepend without listener(" + p + ")");
+				//no big deal :)
+			} else {
+				listeners.add(add(l));
+				//TODO priority listeners
+			}
 		}
-			
-        if (getServer().getPluginManager().isPluginEnabled("SimpleClans")) {
-        	getServer().getPluginManager().registerEvents(new BattleTagsSimpleClansListener(this), this);
-        	log("Hooked into SimpleClans " + getServer().getPluginManager().getPlugin("SimpleClans").getDescription().getVersion());
-        } else if (getServer().getPluginManager().isPluginEnabled("SimpleClans2")) {
-        	getServer().getPluginManager().registerEvents(new BattleTagsSimpleClans2Listener(this), this);
-        	log("Hooked into SimpleClans2 " + getServer().getPluginManager().getPlugin("SimpleClans2").getDescription().getVersion());
-        } else if (getServer().getPluginManager().isPluginEnabled("Towny")) {
-        	getServer().getPluginManager().registerEvents(new BattleTagsTownyListener(this), this);
-        	log("Hooked into Towny " + getServer().getPluginManager().getPlugin("Towny").getDescription().getVersion());
-        } else if (getServer().getPluginManager().isPluginEnabled("xTeam")) {
-        	getServer().getPluginManager().registerEvents(new BattleTagsXTeamListener(this), this);
-        	log("Hooked into xTeam " + getServer().getPluginManager().getPlugin("xTeam").getDescription().getVersion());
-        }
-        
-        if (getServer().getPluginManager().isPluginEnabled("War")) {
-        	getServer().getPluginManager().registerEvents(new BattleTagsWarListener(this), this);
-        	log("Hooked into War " + getServer().getPluginManager().getPlugin("War").getDescription().getVersion());
-        }
-        if (getServer().getPluginManager().isPluginEnabled("BattleArena")) {
-        	getServer().getPluginManager().registerEvents(new BattleTagsBattleArenaListener(this), this);
-        	log("Hooked into BattleArena " + getServer().getPluginManager().getPlugin("BattleArena").getDescription().getVersion());
-        	log("!!! Remember to set useColoredNames to false !!!");
-        } 
+		
+		
         if (getServer().getPluginManager().isPluginEnabled("HealthBar")) {
         	getServer().getPluginManager().registerEvents(new HealthBar(this), this);
         	log("Added HealthBar " + getServer().getPluginManager().getPlugin("HealthBar").getDescription().getVersion() + " compatibility");
         }
-        
-        if (getServer().getPluginManager().isPluginEnabled("AncientRPG")) {
-        	getServer().getPluginManager().registerEvents(new BattleTagsAncientRPGUUIDListener(this), this);
-            getLogger().info("Hooked into AncientRPG " + getServer().getPluginManager().getPlugin("AncientRPG").getDescription().getVersion());
-        }
+	}
+	
+	private BattleTagsListener add(Listener l){
+		BattleTagsListener listener;
+		getServer().getPluginManager().registerEvents(listener = l.getListener(this), this);
+		log("Added " + l.getName() + " " + getServer().getPluginManager().getPlugin(l.getName()).getDescription().getVersion() + " compatibility");
+		if (l.hasWarning())log(l.getWarning());
+		return listener;
 	}
 
 	/**
@@ -227,5 +208,12 @@ public class BattleTags extends JavaPlugin {
 				}
 			}
 		}.runTask(this);
+	}
+	
+	/**
+	 * @return the listeners
+	 */
+	public ListenerManager getListeners() {
+		return listeners;
 	}
 }
