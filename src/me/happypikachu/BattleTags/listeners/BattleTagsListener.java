@@ -3,8 +3,6 @@
  */
 package me.happypikachu.BattleTags.listeners;
 
-import java.util.UUID;
-
 import me.happypikachu.BattleTags.BattleTags;
 import me.happypikachu.BattleTags.managers.Managable;
 

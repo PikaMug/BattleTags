@@ -90,15 +90,17 @@ public class BattleTags extends JavaPlugin {
 	 */
 	private void loadDependencies() {
 		Listener l;
+		java.util.List<String> loadOrder = getConfig().getStringList("priority");
+		
 		for (String p : getDescription().getSoftDepend()){
+			if (loadOrder.contains(p)) continue;
 			l = Listener.getPluginListener(p);
-			if (l == null) {
-				//log(ChatColor.DARK_RED + "WARNING! Found a softdepend without listener(" + p + ")");
-				//no big deal :)
-			} else {
-				listeners.add(add(l));
-				//TODO priority listeners
-			}
+			if (l != null) listeners.add(add(l));
+		}
+		
+		for (int i=loadOrder.size()-1; i >= 0; i--) {
+			l = Listener.getPluginListener(loadOrder.get(i));
+			if (l != null) listeners.add(add(l));
 		}
 		
 		
@@ -111,7 +113,7 @@ public class BattleTags extends JavaPlugin {
 	private BattleTagsListener add(Listener l){
 		BattleTagsListener listener;
 		getServer().getPluginManager().registerEvents(listener = l.getListener(this), this);
-		log("Added " + l.getName() + " " + getServer().getPluginManager().getPlugin(l.getName()).getDescription().getVersion() + " compatibility");
+		log("Added " + l.getName() + " " + getServer().getPluginManager().getPlugin(l.getName()).getDescription().getVersion() + " compatibility (listener:" + l);
 		if (l.hasWarning())log(l.getWarning());
 		return listener;
 	}

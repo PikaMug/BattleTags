@@ -1,6 +1,7 @@
 package me.happypikachu.BattleTags.managers;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -56,12 +57,12 @@ public class BattleTagsTabManager extends BattleTagsManager implements Listener 
 	
 	@Override
 	public void update(Player player) {
-		TabAPI.clearTab(player);
+		clear(player);
 		Player[] players = Bukkit.getServer().getOnlinePlayers();
 		
 		List<Player> orderedplayers = new LinkedList<Player>();
 		if (grouping){
-			
+			orderedplayers.addAll(groupMe(player, players));
 		} else {
 			orderedplayers = Arrays.asList(players);
 		}
@@ -71,6 +72,23 @@ public class BattleTagsTabManager extends BattleTagsManager implements Listener 
 			TabAPI.setTabString(plugin, player, ((int)Math.floor(i/3)), i%3, getTag(player, orderedplayers.get(i)));
 		}
 		TabAPI.updatePlayer(player);
+	}
+
+	/**
+	 * @param players
+	 * @return
+	 */
+	private Collection<Player> groupMe(Player orig, Player[] players) {
+		java.util.List<Player> pls = new java.util.LinkedList<Player>();
+		Player lp;
+		for (Player p : players){
+			for (int i = 0; i < pls.size(); i++) {
+				lp = pls.get(i);
+				if (getTag(orig, lp) == getTag(orig, p)) pls.add(i, p);
+			}
+			pls.add(p);
+		}
+		return pls;
 	}
 	
 }

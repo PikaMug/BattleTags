@@ -1,6 +1,9 @@
 group: false
 nametags: true
 playerlist: false
+priority:
+- Towny
+- Factions
 
 SimpleClans:
   ally: b

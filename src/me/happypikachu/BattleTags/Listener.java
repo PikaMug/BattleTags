@@ -15,6 +15,7 @@ import me.happypikachu.BattleTags.listeners.BattleTagsSimpleClans2Listener;
 import me.happypikachu.BattleTags.listeners.BattleTagsSimpleClansListener;
 import me.happypikachu.BattleTags.listeners.BattleTagsTownyListener;
 import me.happypikachu.BattleTags.listeners.BattleTagsWarListener;
+import me.happypikachu.BattleTags.listeners.BattleTagsXTeam18Listener;
 import me.happypikachu.BattleTags.listeners.BattleTagsXTeamListener;
 
 /**
@@ -33,10 +34,12 @@ public enum Listener {
 	SC("SimpleClans", BattleTagsSimpleClansListener.class),
 	SC2("SimpleClans2", BattleTagsSimpleClans2Listener.class),
 	WAR("War", BattleTagsWarListener.class),
-	XTeam("xTeam", BattleTagsXTeamListener.class);
+	XTeam("xTeam", BattleTagsXTeamListener.class, 1.0, 1.8),
+	XTeam18("xTeam", BattleTagsXTeam18Listener.class, 1.8);
 	
 	private enum Warning {
-		BATTLE(Listener.BATTLE, "!!! Remember to set useColoredNames to false !!!");
+		BATTLE(Listener.BATTLE, "!!! Remember to set useColoredNames to false !!!"),
+		XTeam(Listener.XTeam, "xTeam has been updated! You shoud use the newest instead!(v1.8)");
 		
 		String w; Listener l;
 		Warning(Listener l, String w) {this.w = w;}
@@ -106,6 +109,14 @@ public enum Listener {
 	 */
 	public String getName() {
 		return name;
+	}
+	
+	/**
+	  * @see java.lang.Enum#toString()
+	  */
+	@Override
+	public String toString() {
+		return name + (getVersionMin() != null ? " " + getVersionMin() : "") + (getVersionMax() != null ? " " + getVersionMax() : "");
 	}
 	
 	/**

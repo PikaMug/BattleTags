@@ -2,6 +2,7 @@ package me.happypikachu.BattleTags.listeners;
 
 import me.happypikachu.BattleTags.BattleTags;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 
@@ -38,8 +39,8 @@ public class BattleTagsFactions27Listener extends BattleTagsListener {
 	  */
 	@Override
 	public ChatColor getRelation(String viewer, String seen) {
-		Faction upFaction = MPlayer.get(viewer).getFaction();
-		Faction up2Faction = MPlayer.get(seen).getFaction();
+		Faction upFaction = MPlayer.get(Bukkit.getPlayer(viewer)).getFaction();
+		Faction up2Faction = MPlayer.get(Bukkit.getPlayer(seen)).getFaction();
 		return upFaction.getColorTo(up2Faction);
 	}
 }

@@ -1,5 +1,6 @@
 package me.happypikachu.BattleTags.managers;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
 import me.happypikachu.BattleTags.listeners.BattleTagsListener;
@@ -16,6 +17,8 @@ public class ListenerManager extends Manager<BattleTagsListener>{
 
 	public ChatColor getTag(String player, String seen){
 		ChatColor c = ChatColor.WHITE, temp;
+		if (Bukkit.getPlayer(player) == null || Bukkit.getPlayer(seen) == null) return c;
+		
 		for (BattleTagsListener l : getAll()){
 			temp = l.getRelation(player, seen);
 			//Starting off with white, so we dont care
