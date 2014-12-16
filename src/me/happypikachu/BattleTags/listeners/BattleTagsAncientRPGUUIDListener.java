@@ -104,7 +104,7 @@ public class BattleTagsAncientRPGUUIDListener extends BattleTagsListener {
 			}
 		} else if (getAncient("getPlayerParty", viewer) != null){
 			if (contains(getPlayers((AncientRPGParty)getAncient("getPlayerParty", viewer)), seen)){
-				return ChatColor.getByChar(plugin.getConfig().getString("AncientRPG.guild"));
+				return ChatColor.getByChar(plugin.getConfig().getString("AncientRPG.party"));
 			}
 		}
 		return null;

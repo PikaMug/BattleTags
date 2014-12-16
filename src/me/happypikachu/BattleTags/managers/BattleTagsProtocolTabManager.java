@@ -6,6 +6,7 @@ package me.happypikachu.BattleTags.managers;
 import java.lang.reflect.InvocationTargetException;
 
 import me.happypikachu.BattleTags.BattleTags;
+import me.happypikachu.BattleTags.events.BattleTagsCustomTagEvent;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -33,6 +34,11 @@ public class BattleTagsProtocolTabManager extends BattleTagsManager {
 	public BattleTagsProtocolTabManager(BattleTags plugin) {
 		super(plugin);
 		startup();
+	}
+	
+	@EventHandler
+	public void tag(BattleTagsCustomTagEvent e){
+		if (e.getTag().length()>16)e.setTag(e.getTag().substring(0, 16));
 	}
 	
 	@Override

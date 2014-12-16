@@ -28,9 +28,9 @@ public abstract class BattleTagsManager implements Listener{
 		ChatColor tag = plugin.getListeners().getTag(player, seenPlayer);
 		
 		//Allow integration from other plugins
-		BattleTagsCustomTagEvent tagEvent = new BattleTagsCustomTagEvent(player, seenPlayer, tag);
+		BattleTagsCustomTagEvent tagEvent = new BattleTagsCustomTagEvent(player, seenPlayer, tag + seenPlayer);
 		plugin.getServer().getPluginManager().callEvent(tagEvent);
-		return tagEvent.getTag() + tagEvent.getSeenPlayer();
+		return tagEvent.getTag();
 	}
 
 	/**

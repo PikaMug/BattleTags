@@ -67,7 +67,7 @@ public enum Listener {
 	public static Listener getPluginListener(String name){
 		if (!Bukkit.getServer().getPluginManager().isPluginEnabled(name))return null;
 		Plugin p = Bukkit.getServer().getPluginManager().getPlugin(name);
-		double version = Double.parseDouble(p.getDescription().getVersion().replaceAll("\\D+", ""));
+		double version = extractVersion(p.getDescription().getVersion());
 		
 		for (Listener l : values()){
 			if (!l.name.equalsIgnoreCase(p.getName()))continue;
@@ -81,6 +81,17 @@ public enum Listener {
 		return null;
 	}
 	
+	/**
+	 * @param version
+	 * @return
+	 */
+	private static double extractVersion(String version) {
+		version = version.replaceAll("[^0-9//.]", "");
+		String[] split = version.split("\\.");
+		if (split.length > 1) version = split[0] + "." + split[1];
+		return Double.parseDouble(version);
+	}
+
 	public boolean hasWarning(){
 		try{return Warning.valueOf(name()) != null;
 		} catch (Exception e){return false;}

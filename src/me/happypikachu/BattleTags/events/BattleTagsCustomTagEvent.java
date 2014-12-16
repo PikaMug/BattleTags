@@ -1,6 +1,5 @@
 package me.happypikachu.BattleTags.events;
 
-import org.bukkit.ChatColor;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
@@ -10,9 +9,9 @@ public class BattleTagsCustomTagEvent extends Event {
 	public static HandlerList getHandlerList() { return handlers; }
 	
 	private String player, seenPlayer;
-	private ChatColor tag;
+	private String tag;
 	
-	public BattleTagsCustomTagEvent(String player, String seenPlayer, ChatColor tag) {
+	public BattleTagsCustomTagEvent(String player, String seenPlayer, String tag) {
 		this.player = player;
 		this.seenPlayer = seenPlayer;
 		this.tag = tag;
@@ -30,10 +29,10 @@ public class BattleTagsCustomTagEvent extends Event {
 	public void setSeenPlayer(String seenPlayer) {
 		this.seenPlayer = seenPlayer;
 	}
-	public ChatColor getTag() {
+	public String getTag() {
 		return tag;
 	}
-	public void setTag(ChatColor tag) {
+	public void setTag(String tag) {
 		this.tag = tag;
 	}
 }

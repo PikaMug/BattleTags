@@ -6,6 +6,7 @@ package me.happypikachu.BattleTags.listeners;
 import me.happypikachu.BattleTags.BattleTags;
 import me.happypikachu.BattleTags.managers.Managable;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -41,6 +42,10 @@ public abstract class BattleTagsListener implements Listener, Managable{
    		if (plugin.getServer().getPlayer(name) != null){
    			update(plugin.getServer().getPlayer(name));
    		}
+   	}
+   	
+   	public Player getPlayer(String name){
+   		return Bukkit.getPlayer(name);
    	}
 
 	/**

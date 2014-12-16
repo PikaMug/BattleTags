@@ -38,9 +38,8 @@ public class BattleTagsFactions24Listener extends BattleTagsListener {
 	  */
 	@Override
 	public ChatColor getRelation(String viewer, String seen) {
-		Faction upFaction = UPlayer.get(viewer).getFaction();
-		Faction up2Faction = UPlayer.get(seen).getFaction();
-		
+		Faction upFaction = UPlayer.get(getPlayer(viewer)).getFaction();
+		Faction up2Faction = UPlayer.get(getPlayer(seen)).getFaction();
 		return upFaction.getColorTo(up2Faction);
 	}
 }
